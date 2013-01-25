@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+
 namespace FGJ2013
 {
     /// <summary>
@@ -84,7 +85,6 @@ namespace FGJ2013
             KeyboardInput = Keyboard.GetState();
 
             player.Update(KeyboardInput, gameTime);
-
 
             base.Update(gameTime);
         }
