@@ -36,6 +36,23 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\TiledLib\TiledLib\TiledLib.csproj">
+      <Project>{EC3F6988-459C-4783-89E9-F34C0CC731C7}</Project>
+      <Name>TiledLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FGJ2013ContentPipeline\FGJ2013ContentPipeline.csproj">
+      <Project>{FE73D860-B545-4E31-B33D-522CDDECC6F9}</Project>
+      <Name>FGJ2013ContentPipeline</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Maps\testi.tmx">
+      <Name>testi</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>MapProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
