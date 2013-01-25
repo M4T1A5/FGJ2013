@@ -35,6 +35,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="testi.tmx">
+      <Name>testi</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>MapProcessor</Processor>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\TiledLib\TiledLib\TiledLib.csproj">
@@ -47,11 +52,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Maps\testi.tmx">
-      <Name>testi</Name>
-      <Importer>TmxImporter</Importer>
-      <Processor>MapProcessor</Processor>
-    </Compile>
+    <Folder Include="Maps\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,6 +15,7 @@ namespace FGJ2013ContentPipeline
         public ExternalReference<Texture2DContent> Texture;
         public Rectangle SourceRectangle;
         public SpriteEffects SpriteEffects;
+        //public Rectangle DestinationRectangle;
     }
 
     // For each layer, we store the size of the layer and the tiles.
@@ -35,7 +36,7 @@ namespace FGJ2013ContentPipeline
         public List<DemoMapLayerContent> Layers = new List<DemoMapLayerContent>();
     }
 
-    [ContentProcessor(DisplayName = "TMX Importer - TiledLib")]
+    [ContentProcessor(DisplayName = "TMX Processor - TiledLib")]
     public class MapProcessor : ContentProcessor<MapContent, DemoMapContent>
     {
         public override DemoMapContent Process(MapContent input, ContentProcessorContext context)

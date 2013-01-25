@@ -32,14 +32,14 @@ namespace FGJ2013
         int memFrames;
         float memFPS;
 
-        public Animator(Texture2D Texture, int Frames, int FrameWidth, int FrameHeight, float FPS, int FirstFrame = 0)
+        public Animator(Texture2D Texture, int Frames, int FrameWidth, int FrameHeight, float FPS, int FirstFrame = 1)
         {
             texture = Texture;
             frames = Frames;
             width = FrameWidth;
             height = FrameHeight;
             fps = FPS;
-            firstFrame = FirstFrame;
+            firstFrame = FirstFrame-1;
             timer = 0;
         }
 
@@ -72,8 +72,8 @@ namespace FGJ2013
 
         public void ChangeAnimation(int FirstFrame, int StartingFrame, int Frames, float FPS)
         {
-            memFirstFrame = firstFrame = FirstFrame;
-            memStartingFrame = currentFrame = StartingFrame;
+            memFirstFrame = firstFrame = FirstFrame-1;
+            memStartingFrame = currentFrame = StartingFrame-1;
             memFrames = frames = Frames;
             memFPS = fps = FPS;
             timer = 0;
@@ -81,8 +81,8 @@ namespace FGJ2013
 
         public void AnimationTransition(int FirstFrame, int StartingFrame, int Frames, float FPS)
         { 
-            firstFrame = FirstFrame;
-            currentFrame = StartingFrame;
+            firstFrame = FirstFrame-1;
+            currentFrame = StartingFrame-1;
             frames = Frames;
             fps = FPS;
             timer = 0;
