@@ -92,7 +92,15 @@ namespace FGJ2013ContentPipeline
                             {
                                 // store the texture content and source rectangle
                                 textureContent = tileSet.Texture;
-                                sourceRect = tileSet.Tiles[(int)(tileIndex - tileSet.FirstId)].Source;
+                                try 
+	                            {
+                                    sourceRect = tileSet.Tiles[(int)(tileIndex - tileSet.FirstId)].Source;
+                                }
+                                catch (System.ArgumentOutOfRangeException)
+                                {
+                                    sourceRect = new Rectangle(99999999, 9999999, 1, 1);
+	                                //throw;
+                                };
 
                                 // and break out of the foreach loop
                                 break;
