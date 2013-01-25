@@ -16,15 +16,21 @@ namespace FGJ2013
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        int width = 1280, height = 720;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         KeyboardState KeyboardInput;
+        Map map;
         Player player;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Window.Title = "My heart will go on";
+            graphics.PreferredBackBufferWidth = width;
+            graphics.PreferredBackBufferHeight = height;
+            graphics.ApplyChanges();
         }
 
         /// <summary>
@@ -49,6 +55,7 @@ namespace FGJ2013
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(Content.Load<Texture2D>("sprite"), new Vector2(200));
+            map = Content.Load<Map>("Maps/testi");
 
             // TODO: use this.Content to load your game content here
         }
@@ -89,6 +96,7 @@ namespace FGJ2013
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            map.Draw(spriteBatch);
 
             // TODO: Add your drawing code here
 
