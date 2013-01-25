@@ -18,6 +18,8 @@ namespace FGJ2013
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        KeyboardState KeyboardInput;
+        Player player;
 
         public Game1()
         {
@@ -46,6 +48,7 @@ namespace FGJ2013
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            player = new Player(Content.Load<Texture2D>("sprite"), new Vector2(200));
 
             // TODO: use this.Content to load your game content here
         }
@@ -71,6 +74,10 @@ namespace FGJ2013
                 this.Exit();
 
             // TODO: Add your update logic here
+            KeyboardInput = Keyboard.GetState();
+
+            player.Update(KeyboardInput, gameTime);
+
 
             base.Update(gameTime);
         }

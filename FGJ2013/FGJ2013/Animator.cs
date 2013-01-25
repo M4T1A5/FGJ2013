@@ -94,7 +94,8 @@ namespace FGJ2013
         {
             var currentFrameX = (currentFrame % (texture.Width / width)) * width;
             var currentFrameY = (int)((Math.Floor((double)currentFrame / ((double)texture.Width / (double)width))) * height);
-            SB.Draw(texture, Position, new Rectangle(currentFrameX, currentFrameY, width, height), Color.White);
+
+            SB.Draw(texture, Position, new Rectangle(currentFrameX, currentFrameY, width, height), Color.White); // ,0f, new Vector2(width/2, height/2), SpriteEffects.None, 0f);
         }
     }
 }
