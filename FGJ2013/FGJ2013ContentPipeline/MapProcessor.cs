@@ -15,7 +15,7 @@ namespace FGJ2013ContentPipeline
         public ExternalReference<Texture2DContent> Texture;
         public Rectangle SourceRectangle;
         public SpriteEffects SpriteEffects;
-        //public Rectangle DestinationRectangle;
+        public Rectangle DestinationRectangle;
     }
 
     // For each layer, we store the size of the layer and the tiles.
