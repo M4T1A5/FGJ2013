@@ -30,6 +30,11 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Maps\Harjoituz.tmx">
+      <Name>Harjoituz</Name>
+      <Importer>TmxImporter</Importer>
+      <Processor>MapProcessor</Processor>
+    </Compile>
     <Compile Include="sprite.png">
       <Name>sprite</Name>
       <Importer>TextureImporter</Importer>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="25" tileheight="25">
- <tileset firstgid="1" name="tilesetti" tilewidth="25" tileheight="25">
-  <image source="tilesetti.png" width="150" height="150"/>
+ <tileset firstgid="1" name="tilesettiää" tilewidth="25" tileheight="25">
+  <image source="Maps/tilesettiää.png" width="150" height="150"/>
  </tileset>
  <tileset firstgid="37" name="punahilkka" tilewidth="25" tileheight="25">
-  <image source="punahilkka.png" width="25" height="25"/>
+  <image source="Maps/punahilkka.png" width="25" height="25"/>
  </tileset>
  <layer name="Kentta" width="100" height="100">
   <data encoding="base64" compression="zlib">

@@ -39,28 +39,31 @@ namespace FGJ2013
         {
             foreach (var l in Layers)
             {
-                spriteBatch.Begin();
-
-                for (int y = 0; y < l.Height; y++)
+                if (l != Layers[1])
                 {
-                    for (int x = 0; x < l.Width; x++)
+                    spriteBatch.Begin();
+
+                    for (int y = 0; y < l.Height; y++)
                     {
-                        Tile t = l.Tiles[y * l.Width + x];
+                        for (int x = 0; x < l.Width; x++)
+                        {
+                            Tile t = l.Tiles[y * l.Width + x];
                         //t.DestinationRectangle = new Rectangle(x * TileWidth, y * TileHeight, TileWidth, TileHeight);
                         var DestinationRectangle = new Rectangle(x * TileWidth, y * TileHeight, TileWidth, TileHeight);
-                        spriteBatch.Draw(
-                            t.Texture,
+                            spriteBatch.Draw(
+                                t.Texture,
                             DestinationRectangle,
-                            t.SourceRectangle,
-                            Color.White,
-                            0,
-                            Vector2.Zero,
-                            t.SpriteEffects,
-                            0);
+                                t.SourceRectangle,
+                                Color.White,
+                                0,
+                                Vector2.Zero,
+                                t.SpriteEffects,
+                                0);
+                        }
                     }
-                }
 
-                spriteBatch.End();
+                    spriteBatch.End();
+                }
             }
         }
     }
