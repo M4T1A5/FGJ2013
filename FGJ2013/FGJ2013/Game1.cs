@@ -16,6 +16,7 @@ namespace FGJ2013
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
+        int width = 1280, height = 720;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Map map;
@@ -25,8 +26,8 @@ namespace FGJ2013
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Window.Title = "My heart will go on";
-            graphics.PreferredBackBufferWidth= 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = width;
+            graphics.PreferredBackBufferHeight = height;
             graphics.ApplyChanges();
         }
 
