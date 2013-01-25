@@ -97,10 +97,12 @@ namespace FGJ2013
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             map.Draw(spriteBatch);
-
+            spriteBatch.Begin();
             // TODO: Add your drawing code here
-
+            player.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
+
         }
     }
 }

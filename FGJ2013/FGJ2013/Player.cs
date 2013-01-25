@@ -24,21 +24,21 @@ namespace FGJ2013
             playerAnimator = new Animator(Texture, 4, 64, 64, 1);
         }
 
-        public void Update(KeyboardState KI, GameTime gameTime)
+        public void Update(KeyboardState KeyboardInput, GameTime gameTime)
         {
-            if (KI.IsKeyDown(Keys.Left))
+            if (KeyboardInput.IsKeyDown(Keys.Left))
             {
                 position.X -= 1 * speed;
             }
-            if (KI.IsKeyDown(Keys.Right))
+            if (KeyboardInput.IsKeyDown(Keys.Right))
             {
                 position.X += 1 * speed;
             }
-            if (KI.IsKeyDown(Keys.Up))
+            if (KeyboardInput.IsKeyDown(Keys.Up))
             {
                 position.Y -= 1 * speed;
             }
-            if (KI.IsKeyDown(Keys.Down))
+            if (KeyboardInput.IsKeyDown(Keys.Down))
             {
                 position.Y += 1 * speed;
             }
