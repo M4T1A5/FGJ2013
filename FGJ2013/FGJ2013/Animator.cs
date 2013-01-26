@@ -96,9 +96,7 @@ namespace FGJ2013
             var currentFrameY = (int)((Math.Floor((double)currentFrame / ((double)texture.Width / (double)width))) * height);
             //var colour = (int)Camera.Position.Length();
 
-            SB.Draw(texture, Position + Camera.Position, 
-                new Rectangle(currentFrameX, currentFrameY, width, height), 
-                Color.White); // ,0f, new Vector2(width/2, height/2), SpriteEffects.None, 0f);
+            SB.Draw(texture, Position, new Rectangle(currentFrameX, currentFrameY, width, height), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f); // ,0f, new Vector2(width/2, height/2), SpriteEffects.None, 0f);
         }
     }
 }

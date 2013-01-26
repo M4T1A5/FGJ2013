@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using FuncWorks.XNA.XTiled;
 
 
 namespace FGJ2013
@@ -22,7 +23,9 @@ namespace FGJ2013
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         KeyboardState KeyboardInput;
+        Rectangle mapView;
         Map map;
+        Camera2d camera = new Camera2d();
         Player player;
         List<Enemy> enemies;
         Hitbox hitbox;
@@ -30,6 +33,7 @@ namespace FGJ2013
         SoundEffectInstance heartbeatInstance;
         Texture2D maptexture;
         float shortestDistance;
+
 
         public Game1()
         {
@@ -72,8 +76,8 @@ namespace FGJ2013
                 //new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsuDark"), new Vector2(260)),
                 new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsuDark"), new Vector2(300))
             };
-            maptexture = Content.Load<Texture2D>("Maps/tilesetti4");
-            map = Content.Load<Map>("Maps/Harjoituz");
+            map = Content.Load<Map>("Maps/Stage");
+            mapView = map.Bounds;
             hitbox = new Hitbox(map);
             heartbeat = Content.Load<SoundEffect>("GGJ13_Theme");
             heartbeatInstance = heartbeat.CreateInstance();
@@ -112,7 +116,7 @@ namespace FGJ2013
             {
                 enemy.Update(gameTime, player.position);
                 enemy.position += hitbox.MapHit(enemy.position);
-                hitbox.PlayerHit(new Rectangle((int)enemy.position.X, (int)enemy.position.Y + 30 ,35,35));
+                //hitbox.PlayerHit(new Rectangle((int)enemy.position.X, (int)enemy.position.Y + 30 ,35,35));
             }
 
             if (heartbeatInstance.State != SoundState.Playing)
@@ -137,13 +141,7 @@ namespace FGJ2013
             }
             heartbeatInstance.Volume = 1;// 0.2f + (3200 - shortestDistance) / 4000; 
 
-            if (KeyboardInput.IsKeyDown(Keys.Enter))
-            {
-                foreach (var tile in map.Layers[0].Tiles)
-                {
-                    tile.Texture = maptexture; //ChangeTexture(maptexture);
-                }
-            }
+            camera.Pos = player.position;
 
             base.Update(gameTime);
 
@@ -156,14 +154,21 @@ namespace FGJ2013
         protected override void Draw(GameTime gameTime)
        {
             GraphicsDevice.Clear(Color.Black);
-            map.Draw(spriteBatch, player.position);
-            spriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend);
+           spriteBatch.Begin(SpriteSortMode.FrontToBack,
+                       BlendState.AlphaBlend,
+                       null,
+                       null,
+                       null,
+                       null,
+                       camera.get_transformation(GraphicsDevice /*Send the variable that has your graphic device here*/));
+            
             // TODO: Add your drawing code here
+            map.Draw(spriteBatch, mapView);
             player.Draw(spriteBatch);
             foreach (var enemy in enemies)
             {
                 enemy.Draw(spriteBatch);
-            }
+            }            
             spriteBatch.End();
             base.Draw(gameTime);
         }
