@@ -28,6 +28,8 @@ namespace FGJ2013
         Hitbox hitbox;
         SoundEffect heartbeat;
         SoundEffectInstance heartbeatInstance;
+        Texture2D maptexture;
+        float shortestDistance;
 
         public Game1()
         {
@@ -59,17 +61,18 @@ namespace FGJ2013
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(200));
+            player = new Player(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(350));
             enemies = new List<Enemy> 
             {
                 new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(50)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(80)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(130)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(170)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(230)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(260)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(300))
+                //new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(80)),
+                //new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsDoctorDark"), new Vector2(130)),
+                //new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsDoctorDark"), new Vector2(170)),
+                //new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsuDark"), new Vector2(230)),
+                //new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsuDark"), new Vector2(260)),
+                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsuDark"), new Vector2(300))
             };
+            maptexture = Content.Load<Texture2D>("Maps/tilesetti4");
             map = Content.Load<Map>("Maps/Harjoituz");
             hitbox = new Hitbox(map);
             heartbeat = Content.Load<SoundEffect>("GGJ13_Theme");
@@ -109,16 +112,41 @@ namespace FGJ2013
             {
                 enemy.Update(gameTime, player.position);
                 enemy.position += hitbox.MapHit(enemy.position);
+                hitbox.PlayerHit(new Rectangle((int)enemy.position.X, (int)enemy.position.Y + 30 ,35,35));
             }
+
             if (heartbeatInstance.State != SoundState.Playing)
             {
                 heartbeatInstance.IsLooped = true;
                 heartbeatInstance.Play();
             }
-            heartbeatInstance.Pitch = (1000 - (player.position - enemies[0].position).Length()) / 1000 - 0.4f;
-            heartbeatInstance.Volume = 0.7f;
+            shortestDistance = 10000;
+            foreach (var enemy in enemies)
+            {
+                if (shortestDistance > (enemy.position - player.position).Length())
+                    shortestDistance = (enemy.position - player.position).Length();
+            }
+
+            if (shortestDistance < 3000)
+            {
+                heartbeatInstance.Pitch = (2000 - shortestDistance) / 2000; // -0.3f;
+            }
+            else
+            {
+                heartbeatInstance.Pitch = -0.5f;
+            }
+            heartbeatInstance.Volume = 1;// 0.2f + (3200 - shortestDistance) / 4000; 
+
+            if (KeyboardInput.IsKeyDown(Keys.Enter))
+            {
+                foreach (var tile in map.Layers[0].Tiles)
+                {
+                    tile.Texture = maptexture; //ChangeTexture(maptexture);
+                }
+            }
 
             base.Update(gameTime);
+
         }
 
         /// <summary>
@@ -127,9 +155,9 @@ namespace FGJ2013
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
        {
-            GraphicsDevice.Clear(new Color(183,183,183));
+            GraphicsDevice.Clear(Color.Black);
             map.Draw(spriteBatch, player.position);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.BackToFront,BlendState.AlphaBlend);
             // TODO: Add your drawing code here
             player.Draw(spriteBatch);
             foreach (var enemy in enemies)
