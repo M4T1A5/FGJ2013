@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="25" tileheight="25">
+ <tileset firstgid="1" name="tilesettiää2" tilewidth="25" tileheight="25">
+  <image source="../tilesettiää2.png" width="300" height="150"/>
+ </tileset>
+ <tileset firstgid="73" name="punahilkka" tilewidth="25" tileheight="25">
+  <image source="punahilkka.png" width="25" height="25"/>
+ </tileset>
+ <layer name="stuff" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2sdqxEAQhOFZ55xzWoNzAOecs9//iVyXAYM0Wh+03u7h/6Dow/ggtCqkkdwIIXQp3UqP4dmr9CmNxPHGde9GlTFlXJkwPCeVqYrjjeveLSpLyrKyYniuKmvKhrJZse7dlrKt7Ci7hueesq8cKccV697l0o+msl7vqemIXPpxoBzWfG46IZd+cP+w1Q/uH/SjHeiHLfTDFvphSy79YP9hqx/sP+hHO9APW+iHLfTDFvphS2798P49N5d+xHXv33Nz6UdcT11fXt6n5NaPeH3RD/pRB2/9aHW+6cf/9iN1vLn040Q5Vc6Uc8PzQrkMf79/pH4v6x6UR+VJeTY8X5TX0Pr+kbq+4u9pXWr/ZHXeKfeh2I8r5Vq5UW5Lppf9oJf/343zS/kOxX68Ke/Kh/JZMr3cz708X9X1fGadl+erup7PrKMfttAPW7zsP+IcVkZC8frvVwZ+/d2gMhT8Pe962X/EOa8shOL1P63MKLPKXMmM+xfUy/v7kNx4fx+SG/phC/2whX7YQj9soR+20A9bvH9vyk3qfQL7bwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACd9gMBchLc
+  </data>
+ </layer>
+ <layer name="hitboxit" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2UEKgmAUhVH3UfPaivvfUE0cpiK/dK+eA/9Igvf8kIzmaZrmC512TTts3fOmXX5p2kGPLHpk0SOLHln0yKJHFj2y6JFFjyx6ZDmjx+N7nsfGOcXde7y+531snFPcvYfn4zjPRxbf51n0yKJHlj092v/PbZhxsbfH2vV0DTMu9MiiRxY9suiRRY8sd+nRdrZ2Wbue7t/39oweRz6bomHGURp2bZhxlIZdG2YcpWHXhhlHadi1YcZRGnZtmHGUhl3//e7qfbdb+++9q9Ejix5Z9MiiRxY9suiRRY8semTx+xsAAAAAAAAAAAAAAAAAAAAAAAAAAEj1AThKayE=
+  </data>
+ </layer>
+</map>

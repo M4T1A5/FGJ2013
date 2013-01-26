@@ -15,6 +15,7 @@ namespace FGJ2013
     /// <summary>
     /// This is the main type for your game
     /// </summary>
+
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         int width = 1280, height = 720;
@@ -60,13 +61,13 @@ namespace FGJ2013
             player = new Player(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(200));
             enemies = new List<Enemy> 
             {
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(50)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(80)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(130)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(170)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(230)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(260)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(300))
+                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(50)),
+                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(80)),
+                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(130)),
+                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(170)),
+                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(230)),
+                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(260)),
+                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(300))
             };
             map = Content.Load<Map>("Maps/Harjoituz");
             hitbox = new Hitbox(map);

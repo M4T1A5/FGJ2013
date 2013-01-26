@@ -22,6 +22,7 @@ namespace FGJ2013
         private float speed = 1;
         private float fps = 5;
         private Color color;
+        private Random rand = new Random();
 
         enum Look
         {
