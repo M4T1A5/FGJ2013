@@ -26,6 +26,8 @@ namespace FGJ2013
         Player player;
         List<Enemy> enemies;
         Hitbox hitbox;
+        SoundEffect heartbeat;
+        SoundEffectInstance heartbeatInstance;
 
         public Game1()
         {
@@ -46,7 +48,6 @@ namespace FGJ2013
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -71,6 +72,8 @@ namespace FGJ2013
             };
             map = Content.Load<Map>("Maps/Harjoituz");
             hitbox = new Hitbox(map);
+            heartbeat = Content.Load<SoundEffect>("GGJ13_Theme");
+            heartbeatInstance = heartbeat.CreateInstance();
 
             // TODO: use this.Content to load your game content here
         }
@@ -107,6 +110,13 @@ namespace FGJ2013
                 enemy.Update(gameTime, player.position);
                 enemy.position += hitbox.MapHit(enemy.position);
             }
+            if (heartbeatInstance.State != SoundState.Playing)
+            {
+                heartbeatInstance.IsLooped = true;
+                heartbeatInstance.Play();
+            }
+            heartbeatInstance.Pitch = (1000 - (player.position - enemies[0].position).Length()) / 1000 - 0.4f;
+            heartbeatInstance.Volume = 0.7f;
 
             base.Update(gameTime);
         }
