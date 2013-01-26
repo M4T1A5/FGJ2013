@@ -55,7 +55,6 @@ namespace FGJ2013
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-            mapView = graphics.GraphicsDevice.Viewport.Bounds;
         }
 
         /// <summary>
@@ -78,6 +77,7 @@ namespace FGJ2013
                 new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsuDark"), new Vector2(300))
             };
             map = Content.Load<Map>("Maps/Stage");
+            mapView = map.Bounds;
             hitbox = new Hitbox(map);
             heartbeat = Content.Load<SoundEffect>("GGJ13_Theme");
             heartbeatInstance = heartbeat.CreateInstance();
@@ -116,7 +116,7 @@ namespace FGJ2013
             {
                 enemy.Update(gameTime, player.position);
                 enemy.position += hitbox.MapHit(enemy.position);
-                hitbox.PlayerHit(new Rectangle((int)enemy.position.X, (int)enemy.position.Y + 30 ,35,35));
+                //hitbox.PlayerHit(new Rectangle((int)enemy.position.X, (int)enemy.position.Y + 30 ,35,35));
             }
 
             if (heartbeatInstance.State != SoundState.Playing)
@@ -140,14 +140,6 @@ namespace FGJ2013
                 heartbeatInstance.Pitch = -0.5f;
             }
             heartbeatInstance.Volume = 1;// 0.2f + (3200 - shortestDistance) / 4000; 
-
-            if (KeyboardInput.IsKeyDown(Keys.Enter))
-            {
-                foreach (var tile in map.Layers[0].Tiles)
-                {
-                    tile.Texture = maptexture; //ChangeTexture(maptexture);
-                }
-            }
 
             camera.Pos = player.position;
 
