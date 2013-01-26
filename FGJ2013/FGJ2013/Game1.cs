@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using FuncWorks.XNA.XTiled;
 
 
 namespace FGJ2013
@@ -21,6 +22,7 @@ namespace FGJ2013
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         KeyboardState KeyboardInput;
+        Rectangle mapView;
         Map map;
         Player player;
         List<Enemy> enemies;
@@ -48,6 +50,7 @@ namespace FGJ2013
         {
             // TODO: Add your initialization logic here
             base.Initialize();
+            mapView = graphics.GraphicsDevice.Viewport.Bounds;
         }
 
         /// <summary>
@@ -69,7 +72,7 @@ namespace FGJ2013
                 new Enemy(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(260)),
                 new Enemy(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(300))
             };
-            map = Content.Load<Map>("Maps/Harjoituz");
+            map = Content.Load<Map>("Maps/Stage");
             hitbox = new Hitbox(map);
             heartbeat = Content.Load<SoundEffect>("GGJ13_Theme");
             heartbeatInstance = heartbeat.CreateInstance();
@@ -126,9 +129,9 @@ namespace FGJ2013
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
        {
-            GraphicsDevice.Clear(new Color(183,183,183));
-            map.Draw(spriteBatch, player.position);
+            GraphicsDevice.Clear(new Color(183,183,183));            
             spriteBatch.Begin();
+            map.Draw(spriteBatch, mapView);
             // TODO: Add your drawing code here
             player.Draw(spriteBatch);
             foreach (var enemy in enemies)

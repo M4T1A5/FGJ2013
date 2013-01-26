@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using FuncWorks.XNA.XTiled;
 using System.Diagnostics;
 
 namespace FGJ2013
@@ -19,13 +20,13 @@ namespace FGJ2013
         public Hitbox(Map map)
         {
             hitboxes = new List<Rectangle>();
-            foreach (var tile in map.Layers[1].Tiles)
-            {
-                if (tile.SourceRectangle != new Rectangle(99999999, 99999999, 1, 1))
-	            {
-                    hitboxes.Add(tile.DestinationRectangle);
-	            }
-            }
+            //foreach (var tile in map.Layers[1].Tiles)
+            //{
+            //    if (tile.SourceRectangle != new Rectangle(99999999, 99999999, 1, 1))
+            //    {
+            //        hitboxes.Add(tile.DestinationRectangle);
+            //    }
+            //}
         }
 
         public Vector2 MapHit(Vector2 CharacterPosition)
