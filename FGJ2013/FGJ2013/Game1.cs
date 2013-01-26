@@ -56,7 +56,7 @@ namespace FGJ2013
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(Content.Load<Texture2D>("sprite"), new Vector2(200));
+            player = new Player(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(200));
             map = Content.Load<Map>("Maps/Harjoituz");
             hitbox = new Hitbox(map);
 

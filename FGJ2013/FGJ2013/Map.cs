@@ -9,10 +9,10 @@ namespace FGJ2013
     // close to the simplest way to interact with TiledLib in order to get data from the Tiled editor
     // to the game using custom game types.
 
-    //public static class Camera
-    //{
-    //    public static Vector2 Position = Vector2.Zero;
-    //}
+    public static class Camera
+    {
+        public static Vector2 Position = Vector2.Zero;
+    }
 
     public class Tile
     {
@@ -42,18 +42,19 @@ namespace FGJ2013
                 if (l != Layers[1])
                 {
                     spriteBatch.Begin();
+                    var colour = (int)Camera.Position.Length();
 
                     for (int y = 0; y < l.Height; y++)
                     {
                         for (int x = 0; x < l.Width; x++)
                         {
                             Tile t = l.Tiles[y * l.Width + x];
-                            //t.DestinationRectangle = new Rectangle(x * TileWidth, y * TileHeight, TileWidth, TileHeight);
+                            t.DestinationRectangle = new Rectangle(x * TileWidth + (int)Camera.Position.X, y * TileHeight + (int)Camera.Position.Y, TileWidth, TileHeight);
                             spriteBatch.Draw(
                                 t.Texture,
                             t.DestinationRectangle,
                                 t.SourceRectangle,
-                                Color.White,
+                                new Color(colour, colour, colour),
                                 0,
                                 Vector2.Zero,
                                 t.SpriteEffects,
