@@ -47,31 +47,31 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllCharacterAnimations.png">
+    <Compile Include="Animations\AllCharacterAnimations.png">
       <Name>AllCharacterAnimations</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllCharacterAnimationsHoitsu.png">
+    <Compile Include="Animations\AllCharacterAnimationsHoitsu.png">
       <Name>AllCharacterAnimationsHoitsu</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllCharacterAnimationsDoctor.png">
+    <Compile Include="Animations\AllCharacterAnimationsDoctor.png">
       <Name>AllCharacterAnimationsDoctor</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="AllCharacterAnimationsDoctorDark.png">
+    <Compile Include="Animations\AllCharacterAnimationsDoctorDark.png">
       <Name>AllCharacterAnimationsDoctorDark</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="AllCharacterAnimationsHoitsuDark.png">
+    <Compile Include="Animations\AllCharacterAnimationsHoitsuDark.png">
       <Name>AllCharacterAnimationsHoitsuDark</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -89,6 +89,13 @@
       <Name>GGJ13_Theme</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Animations\AllCharacterAnimationsDark.png">
+      <Name>AllCharacterAnimationsDark</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

@@ -83,7 +83,7 @@ namespace FGJ2013
                 look = Look.Up;
             }
 
-            if ((PlayerPosition - position).Length() < 300)
+            if ((PlayerPosition - position).Length() < 500)
             {
                 Direction = Vector2.Normalize(PlayerPosition - position);
             }

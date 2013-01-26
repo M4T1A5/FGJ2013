@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using FuncWorks.XNA.XTiled;
+using System.Diagnostics;
 
 
 namespace FGJ2013
@@ -65,16 +66,15 @@ namespace FGJ2013
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(350));
+            player = new Player(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark"), new Vector2(350));
             enemies = new List<Enemy> 
             {
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(50)),
-                //new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsu"), new Vector2(80)),
-                //new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsDoctorDark"), new Vector2(130)),
-                //new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsDoctorDark"), new Vector2(170)),
-                //new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsuDark"), new Vector2(230)),
-                //new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsuDark"), new Vector2(260)),
-                new Enemy(Content.Load<Texture2D>("AllCharacterAnimationsHoitsuDark"), new Vector2(300))
+                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimations"), new Vector2(50)),
+                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark"), new Vector2(80)),
+                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctor"), new Vector2(130)),
+                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctorDark"), new Vector2(170)),
+                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsu"), new Vector2(230)),
+                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsuDark"), new Vector2(260))
             };
             map = Content.Load<Map>("Maps/Stage");
             mapView = map.Bounds;
@@ -116,7 +116,10 @@ namespace FGJ2013
             {
                 enemy.Update(gameTime, player.position);
                 enemy.position += hitbox.MapHit(enemy.position);
-                //hitbox.PlayerHit(new Rectangle((int)enemy.position.X, (int)enemy.position.Y + 30 ,35,35));
+                if (hitbox.PlayerHit(new Rectangle((int)player.position.X + 10, (int)player.position.Y + 45, 35, 35),new Rectangle((int)enemy.position.X + 10, (int)enemy.position.Y + 45, 35, 35)))
+                {
+                    enemy.position = new Vector2(350);
+                }
             }
 
             if (heartbeatInstance.State != SoundState.Playing)

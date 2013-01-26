@@ -27,7 +27,7 @@ namespace FGJ2013
                 {
                     if (tile != null)
                     {
-                        hitboxes.Add(tile.Target);  
+                        hitboxes.Add(tile.Target);
                     }
                 }                
             }
@@ -36,7 +36,7 @@ namespace FGJ2013
         public Vector2 MapHit(Vector2 CharacterPosition)
         {
             Vector2 hit = Vector2.Zero;
-            playerRectangle = new Rectangle((int)CharacterPosition.X, (int)CharacterPosition.Y + 30, 35, 35);
+            playerRectangle = new Rectangle((int)CharacterPosition.X + 10, (int)CharacterPosition.Y + 45, 35, 35);
             foreach (Rectangle hitbox in hitboxes)
             {
                 if (hitbox.Intersects(playerRectangle))
@@ -63,9 +63,9 @@ namespace FGJ2013
             return hit;
         }
 
-        public bool PlayerHit(Rectangle BRect)
+        public bool PlayerHit(Rectangle ARect,Rectangle BRect)
         {
-            if (playerRectangle.Intersects(BRect))
+            if (ARect.Intersects(BRect))
                 return true;
             else
                 return false;
