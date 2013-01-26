@@ -24,11 +24,13 @@ namespace FGJ2013
         KeyboardState KeyboardInput;
         Rectangle mapView;
         Map map;
+        Camera2d camera = new Camera2d();
         Player player;
         List<Enemy> enemies;
         Hitbox hitbox;
         SoundEffect heartbeat;
         SoundEffectInstance heartbeatInstance;
+
 
         public Game1()
         {
@@ -120,6 +122,8 @@ namespace FGJ2013
             heartbeatInstance.Pitch = (1000 - (player.position - enemies[0].position).Length()) / 1000 - 0.4f;
             heartbeatInstance.Volume = 0.7f;
 
+            camera.Pos = player.position;
+
             base.Update(gameTime);
         }
 
@@ -129,15 +133,22 @@ namespace FGJ2013
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
        {
-            GraphicsDevice.Clear(new Color(183,183,183));            
-            spriteBatch.Begin();
-            map.Draw(spriteBatch, mapView);
+           GraphicsDevice.Clear(new Color(183, 183, 183));
+           spriteBatch.Begin(SpriteSortMode.FrontToBack,
+                       BlendState.AlphaBlend,
+                       null,
+                       null,
+                       null,
+                       null,
+                       camera.get_transformation(GraphicsDevice /*Send the variable that has your graphic device here*/));
+            
             // TODO: Add your drawing code here
+            map.Draw(spriteBatch, mapView);
             player.Draw(spriteBatch);
             foreach (var enemy in enemies)
             {
                 enemy.Draw(spriteBatch);
-            }
+            }            
             spriteBatch.End();
             base.Draw(gameTime);
         }
