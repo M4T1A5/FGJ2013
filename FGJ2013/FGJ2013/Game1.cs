@@ -23,6 +23,7 @@ namespace FGJ2013
         KeyboardState KeyboardInput;
         Map map;
         Player player;
+        Hitbox hitbox;
 
         public Game1()
         {
@@ -57,6 +58,7 @@ namespace FGJ2013
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(Content.Load<Texture2D>("sprite"), new Vector2(200));
             map = Content.Load<Map>("Maps/Harjoituz");
+            hitbox = new Hitbox(map);
 
             // TODO: use this.Content to load your game content here
         }
@@ -85,6 +87,8 @@ namespace FGJ2013
             KeyboardInput = Keyboard.GetState();
 
             player.Update(KeyboardInput, gameTime);
+
+            hitbox.Hit(player.position);
 
             base.Update(gameTime);
         }

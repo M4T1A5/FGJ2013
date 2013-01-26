@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Animator.cs" />
     <Compile Include="GameEventHandler.cs" />
+    <Compile Include="Hitbox.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

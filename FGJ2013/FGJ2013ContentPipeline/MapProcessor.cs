@@ -99,7 +99,7 @@ namespace FGJ2013ContentPipeline
                                 }
                                 catch (System.ArgumentOutOfRangeException)
                                 {
-                                    sourceRect = new Rectangle(99999999, 9999999, 1, 1);
+                                    sourceRect = new Rectangle(99999999, 99999999, 1, 1);
 	                                //throw;
                                 };
 
@@ -115,6 +115,16 @@ namespace FGJ2013ContentPipeline
                             SourceRectangle = sourceRect,
                             SpriteEffects = spriteEffects
                         };
+                    }
+
+                    for (int y = 0; y < layer.Height; y++)
+                    {
+                        for (int x = 0; x < layer.Width; x++)
+                        {
+                            outLayer.Tiles[y * layer.Width + x].DestinationRectangle = 
+                                new Rectangle(x * input.TileWidth, y * input.TileHeight, 
+                                    input.TileWidth, input.TileHeight);
+                        }
                     }
 
                     // add the layer to our output

@@ -19,7 +19,7 @@ namespace FGJ2013
         public Texture2D Texture;
         public Rectangle SourceRectangle;
         public SpriteEffects SpriteEffects;
-        public Rectangle DestinationRectangle = Rectangle.Empty;
+        public Rectangle DestinationRectangle; //= Rectangle.Empty;
     }
 
     public class Layer
@@ -48,7 +48,7 @@ namespace FGJ2013
                         for (int x = 0; x < l.Width; x++)
                         {
                             Tile t = l.Tiles[y * l.Width + x];
-                            t.DestinationRectangle = new Rectangle(x * TileWidth, y * TileHeight, TileWidth, TileHeight);
+                            //t.DestinationRectangle = new Rectangle(x * TileWidth, y * TileHeight, TileWidth, TileHeight);
                             spriteBatch.Draw(
                                 t.Texture,
                             t.DestinationRectangle,
