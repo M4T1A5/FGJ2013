@@ -117,7 +117,7 @@ namespace FGJ2013
         protected override void Draw(GameTime gameTime)
        {
             GraphicsDevice.Clear(new Color(183,183,183));
-            map.Draw(spriteBatch);
+            map.Draw(spriteBatch, player.position);
             spriteBatch.Begin();
             // TODO: Add your drawing code here
             player.Draw(spriteBatch);

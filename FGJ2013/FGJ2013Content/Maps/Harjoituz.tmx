@@ -6,6 +6,9 @@
  <tileset firstgid="37" name="punahilkka" tilewidth="25" tileheight="25">
   <image source="Maps/punahilkka.png" width="25" height="25"/>
  </tileset>
+ <tileset firstgid="38" name="pimeystileset" tilewidth="25" tileheight="25">
+  <image source="pimeystileset.png" width="50" height="50"/>
+ </tileset>
  <layer name="Kentta" width="100" height="100">
   <data encoding="base64" compression="zlib">
    eJzt0zdOBQEQRMHFez7ee7j/GemYnFGvVCW1Jp7gbS3Lsp3tZLuDdy/bX/jrIDvMjrLjwXuSnQ78tzZn2Xm2yS4G72V2NfDf2lxnN9ltdjd477OHgf/WRh9d9NFFH1300UUfXfTRRR9d9NFFH1300UUfXfTRRR9d9NFFH1300UUfXfTRRR9d9NFFH1300UUfXfTRRR9d9NFFH1300eUxe8qes5fB+5q9Dfy3Nu/ZR/aZfQ3e7+zn/98DAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOIXwS9OoQ==
@@ -14,6 +17,11 @@
  <layer name="Hitboxit" width="100" height="100" opacity="0.63">
   <data encoding="base64" compression="zlib">
    eJzt27ENwDAMBDEt4/1XdB2kt64ggV9AV+vMzFkcX5s30eNPjxY9WvRo0aNFjxY9WvRo0aNFjxY9WvRo0aNFjxY9WvRo0aNFjxY9WvRo0aNFjxY9WvRo0aNFjxY9WvRo0aNFjxY9WvRo2fzF0QMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA3rhadhKB
+  </data>
+ </layer>
+ <layer name="Pimeys" width="100" height="100" opacity="0.61">
+  <data encoding="base64" compression="zlib">
+   eJzt0ckJwDAAwLBM02P/Bfsu/YUETJHAE/gYYxwTnQvia+aFH/v40eJHix8tfrT40eJHix8tfrT40eJHix8t12R+7DH7414Ub360+NHiR4sfLX60+NHiR4sfLX60+NHiR4sfLX60+NHiR4sfLX60+NHiBwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD83wP2GKbf
   </data>
  </layer>
 </map>
