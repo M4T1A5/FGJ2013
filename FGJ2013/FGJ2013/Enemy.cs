@@ -21,16 +21,29 @@ namespace FGJ2013
         public Vector2 Direction = Vector2.Zero;
         private float speed = 1;
         private float fps = 5;
+        private Color color;
 
-        public Enemy(Texture2D Texture, Vector2 Position)
+        enum Look
+        {
+            None = 0,
+            Up,
+            Down,
+            Left,
+            Right
+        }
+
+        Look look = Look.None;
+
+        public Enemy(Texture2D Texture, Vector2 Position) //Color Color)
         {
             position = Position;
-            animator = new Animator(Texture, 1, 35, 55, 1, 2);
+            animator = new Animator(Texture, 2, 35, 55, 1, 2);
+            //color = Color;
         }
 
         public void Update(GameTime gameTime, Vector2 PlayerPosition)
         {
-            face = Direction = Vector2.Normalize(PlayerPosition - position);
+            face = Vector2.Normalize(PlayerPosition - position);
 
             if (Direction == Vector2.Zero) // if enemy is not moving
             {
@@ -42,25 +55,34 @@ namespace FGJ2013
                     animator.ChangeAnimation(13, 13, 1, fps);
                 if (face.X < -0.8f) // if player on the left side of the enemy
                     animator.ChangeAnimation(19, 19, 1, fps);
+                look = Look.None;
             }
             else if (Direction.X > 0.8f) // if player on the right side of the enemy
             {
+                if (look != Look.Right)
                 animator.ChangeAnimation(13, 16, 6, fps);
+                look = Look.Right;
             }
             else if (Direction.X < -0.8f) // if player on the left side of the enemy
             {
+                if (look != Look.Left)
                 animator.ChangeAnimation(19, 20, 6, fps);
+                look = Look.Left;
             }
             else if (Direction.Y > 0) // if player below the enemy
             {
+                if (look != Look.Down)
                 animator.ChangeAnimation(1, 1, 4, fps);
+                look = Look.Down;
             }
             else if (Direction.Y < 0) // if player above the enemy
             {
+                if (look != Look.Up)
                 animator.ChangeAnimation(7, 7, 4, fps);
+                look = Look.Up;
             }
 
-            if ((PlayerPosition - position).Length() < 400)
+            if ((PlayerPosition - position).Length() < 300)
             {
                 Direction = Vector2.Normalize(PlayerPosition - position);
             }
