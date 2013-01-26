@@ -23,6 +23,7 @@ namespace FGJ2013
         KeyboardState KeyboardInput;
         Map map;
         Player player;
+        List<Enemy> enemies;
         Hitbox hitbox;
 
         public Game1()
@@ -57,6 +58,10 @@ namespace FGJ2013
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             player = new Player(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(200));
+            enemies = new List<Enemy> 
+            {
+                new Enemy(Content.Load<Texture2D>("AllCharacterAnimations"), new Vector2(600)) 
+            };
             map = Content.Load<Map>("Maps/Harjoituz");
             hitbox = new Hitbox(map);
 
@@ -88,7 +93,13 @@ namespace FGJ2013
 
             player.Update(KeyboardInput, gameTime);
 
-            player.position += hitbox.Hit(player.position);
+            player.position += hitbox.MapHit(player.position);
+
+            foreach (var enemy in enemies)
+            {
+                enemy.Update(gameTime, player.position);
+                enemy.position += hitbox.MapHit(enemy.position);
+            }
 
             base.Update(gameTime);
         }
@@ -99,14 +110,17 @@ namespace FGJ2013
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(new Color(183,183,183));
             map.Draw(spriteBatch);
             spriteBatch.Begin();
             // TODO: Add your drawing code here
             player.Draw(spriteBatch);
+            foreach (var enemy in enemies)
+            {
+                enemy.Draw(spriteBatch);
+            }
             spriteBatch.End();
             base.Draw(gameTime);
-
         }
     }
 }

@@ -28,10 +28,10 @@ namespace FGJ2013
             }
         }
 
-        public Vector2 Hit(Vector2 PlayerPosition)
+        public Vector2 MapHit(Vector2 CharacterPosition)
         {
             Vector2 hit = Vector2.Zero;
-            var playerRectangle = new Rectangle((int)PlayerPosition.X, (int)PlayerPosition.Y + 30, 35, 35);
+            var playerRectangle = new Rectangle((int)CharacterPosition.X, (int)CharacterPosition.Y + 30, 35, 35);
             foreach (Rectangle hitbox in hitboxes)
             {
                 if (hitbox.Intersects(playerRectangle))

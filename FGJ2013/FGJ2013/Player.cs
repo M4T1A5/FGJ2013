@@ -17,7 +17,7 @@ namespace FGJ2013
     {
         public Vector2 position;
         private Animator playerAnimator;
-        private float speed = 2;
+        private float speed = 5;
         private float fps = 5;
 
         private List<Vector2> directionList = new List<Vector2> 
@@ -31,7 +31,7 @@ namespace FGJ2013
 
         public Vector2 Direction = Vector2.Zero;
 
-        private List<int> randomizator;
+        //private List<int> randomizator;
 
         public Player(Texture2D Texture, Vector2 Position)
         {
@@ -71,7 +71,7 @@ namespace FGJ2013
 
         public void Draw(SpriteBatch SB)
         {
-            playerAnimator.Draw(SB, new Vector2((position.X), (position.Y)));
+            playerAnimator.Draw(SB, position);
         }
 
         private void keyboardController(KeyboardState KeyboardInput)
