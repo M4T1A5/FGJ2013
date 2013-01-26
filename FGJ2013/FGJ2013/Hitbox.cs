@@ -28,16 +28,36 @@ namespace FGJ2013
             }
         }
 
-        public void Hit(Vector2 PlayerPosition)
+        public Vector2 Hit(Vector2 PlayerPosition)
         {
-            var playerRectangle = new Rectangle((int)PlayerPosition.X, (int)PlayerPosition.Y, 64, 64);
-            foreach (var hitbox in hitboxes)
+            Vector2 hit = Vector2.Zero;
+            var playerRectangle = new Rectangle((int)PlayerPosition.X, (int)PlayerPosition.Y + 30, 35, 35);
+            foreach (Rectangle hitbox in hitboxes)
             {
                 if (hitbox.Intersects(playerRectangle))
                 {
-                    Debug.WriteLine("Räjähdys " + hitbox.Location);
+                    Vector2 difference = new Vector2((playerRectangle.Location.X + playerRectangle.Width / 2) - (hitbox.Location.X + hitbox.Width / 2), (playerRectangle.Location.Y + playerRectangle.Height / 2) - (hitbox.Location.Y + hitbox.Height / 2));
+                    Debug.WriteLine("Räjähdys " + hitbox.Location + ", vektori: "  + difference);
+
+
+                    if (Math.Abs(difference.Y) > Math.Abs(difference.X))
+                    {
+                        hit.Y = (((hitbox.Height / 2f) + (playerRectangle.Height / 2f)) - Math.Abs(difference.Y)) * difference.Y / Math.Abs(difference.Y);
+                    }
+                    else if (Math.Abs(difference.X) > Math.Abs(difference.Y))
+                    {
+                        hit.X = (((hitbox.Width / 2f) + (playerRectangle.Width / 2f)) - Math.Abs(difference.X)) * difference.X / Math.Abs(difference.X);
+                    }
+                    else
+                    {
+
+                    }
+
+                    playerRectangle.X += (int)(hit.X);
+                    playerRectangle.Y += (int)(hit.Y);
                 }
             }
+            return hit;
         }
     }
 }

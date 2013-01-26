@@ -88,7 +88,7 @@ namespace FGJ2013
 
             player.Update(KeyboardInput, gameTime);
 
-            hitbox.Hit(player.position);
+            player.position += hitbox.Hit(player.position);
 
             base.Update(gameTime);
         }
@@ -98,7 +98,7 @@ namespace FGJ2013
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
-        {
+       {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             map.Draw(spriteBatch);
             spriteBatch.Begin();

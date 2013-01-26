@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using System.Diagnostics;
 
 namespace FGJ2013
 {
@@ -19,22 +20,16 @@ namespace FGJ2013
         private float speed = 2;
         private float fps = 5;
 
-        public enum Direction
-        {
-            None = 0,
-            N,
-            NE,
-            E,
-            SE,
-            S,
-            SW,
-            W,
-            NW
-        }
+        private List<Vector2> directionList = new List<Vector2> 
+        { 
+            Vector2.Zero, new Vector2(-1,1), new Vector2(0,1), 
+            new Vector2(1,1), new Vector2(-1,0), new Vector2(1,-1), 
+            new Vector2(1,0), new Vector2(-1,-1), new Vector2(0,-1)
+        };
         
-        private Random rand;
+        private Random rand = new Random();
 
-        public Direction direction = Direction.None;
+        public Vector2 Direction = Vector2.Zero;
 
         private List<int> randomizator;
 
@@ -42,129 +37,121 @@ namespace FGJ2013
         {
             position = Position;
             playerAnimator = new Animator(Texture, 1, 35, 55, 1, 2);
+            for (int i = 1; i < directionList.Count; i++)
+            {
+                directionList[i] = Vector2.Normalize(directionList[i]);
+            }
         }
 
         public void Update(KeyboardState KeyboardInput, GameTime gameTime)
         {
             keyboardController(KeyboardInput);
 
-            Camera.Position = new Vector2(1280/2, 720/2) - position;
+            Camera.Position = new Vector2(1280 / 2, 720 / 2) - new Vector2((position.X), (position.Y));
 
-            //if (KeyboardInput.IsKeyDown(Keys.Space))
-            //{
-            //    for (int i = 0; i < 8; i++)
-            //    {
-            //        randomizator.Add(rand.Next(1, 999999));
-            //        randomizator.Add(rand.Next(1, 999999));
-            //        randomizator.Add(rand.Next(1, 999999));
-            //        randomizator.Add(rand.Next(1, 999999));
-            //        randomizator.Add(rand.Next(1, 999999));
-            //        randomizator.Add(rand.Next(1, 999999));
-            //        randomizator.Add(rand.Next(1, 999999));
-            //        randomizator.Add(rand.Next(1, 999999));
-            //    }
-            //}
+            if (KeyboardInput.IsKeyDown(Keys.Space))
+            {
+                int r = ((rand.Next(1, 99)) * 2 + 1);
+                var multiplier = (3f / 4f) * Math.PI;
+                directionList[8] = directionList[rand.Next(1, 8)];
 
+                for (int i = 1; i < 8; i++)
+                {
+                    directionList[i] = new Vector2((float)Math.Cos(i * r * multiplier) * directionList[1].X - (float)Math.Sin(i * r * multiplier) * directionList[1].Y, (float)Math.Sin(i * r * multiplier) * directionList[1].X + (float)Math.Cos(i * r * multiplier) * directionList[1].Y);
 
+                }
+            }
+
+            Debug.WriteLine(Direction);
 
             playerAnimator.Update(gameTime);
+
+            position += Direction * speed;
         }
 
         public void Draw(SpriteBatch SB)
         {
-            playerAnimator.Draw(SB, position);
+            playerAnimator.Draw(SB, new Vector2((position.X), (position.Y)));
         }
 
         private void keyboardController(KeyboardState KeyboardInput)
         {
             if (!KeyboardInput.IsKeyDown(Keys.Up) && !KeyboardInput.IsKeyDown(Keys.Right) && !KeyboardInput.IsKeyDown(Keys.Down) && !KeyboardInput.IsKeyDown(Keys.Left))
             {
-                if ((direction == Direction.NE || direction == Direction.N || direction == Direction.NW))
+                if (Direction.Y < 0)
                     playerAnimator.ChangeAnimation(8, 8, 1, fps);
-                if ((direction == Direction.SE || direction == Direction.S || direction == Direction.SW))
+                if (Direction.Y > 0)
                     playerAnimator.ChangeAnimation(2, 2, 1, fps);
-                if (direction == Direction.E)
-                    playerAnimator.ChangeAnimation(15, 15, 1, fps);
-                if (direction == Direction.W)
+                if (Direction.X > 0 && Direction.Y == 0)
+                    playerAnimator.ChangeAnimation(13, 13, 1, fps);
+                if (Direction.X < 0 && Direction.Y == 0)
                     playerAnimator.ChangeAnimation(19, 19, 1, fps);
 
-                direction = Direction.None;
+                Direction = directionList[0];
             }
             else if (KeyboardInput.IsKeyDown(Keys.Up) && KeyboardInput.IsKeyDown(Keys.Right))
             {
-                position.X += 1 * speed;
-                position.Y -= 1 * speed;
-                if (!(direction == Direction.NE || direction == Direction.N || direction == Direction.NW))
+                if (Direction.Y >= 0)
                 {
                     playerAnimator.ChangeAnimation(7, 7, 4, fps);
                 }
-                direction = Direction.NE;
+                Direction = directionList[5];
             }
             else if (KeyboardInput.IsKeyDown(Keys.Up) && KeyboardInput.IsKeyDown(Keys.Left))
             {
-                position.X -= 1 * speed;
-                position.Y -= 1 * speed;
-                if (!(direction == Direction.NE || direction == Direction.N || direction == Direction.NW))
+                if (Direction.Y >= 0)
                 {
                     playerAnimator.ChangeAnimation(7, 7, 4, fps);
                 }
-                direction = Direction.NW;
+                Direction = directionList[7];
             }
             else if (KeyboardInput.IsKeyDown(Keys.Up))
             {
-                position.Y -= 1 * speed;
-                if (!(direction == Direction.NE || direction == Direction.N || direction == Direction.NW))
+                if (Direction.Y >= 0)
                 {
                     playerAnimator.ChangeAnimation(7, 7, 4, fps);
                 }
-                direction = Direction.N;
+                Direction = directionList[8];
             }
             else if (KeyboardInput.IsKeyDown(Keys.Down) && KeyboardInput.IsKeyDown(Keys.Right))
             {
-                position.X += 1 * speed;
-                position.Y += 1 * speed;
-                if (!(direction == Direction.SE || direction == Direction.S || direction == Direction.SW))
+                if (Direction.Y <= 0)
                 {
                     playerAnimator.ChangeAnimation(1, 1, 4, fps);
                 }
-                direction = Direction.SE;
+                Direction = directionList[3];
             }
             else if (KeyboardInput.IsKeyDown(Keys.Down) && KeyboardInput.IsKeyDown(Keys.Left))
             {
-                position.X -= 1 * speed;
-                position.Y += 1 * speed;
-                if (!(direction == Direction.SE || direction == Direction.S || direction == Direction.SW))
+                if (Direction.Y <= 0)
                 {
                     playerAnimator.ChangeAnimation(1, 1, 4, fps);
                 }
-                direction = Direction.SW;
+                Direction = directionList[1];
             }
             else if (KeyboardInput.IsKeyDown(Keys.Down))
             {
-                position.Y += 1 * speed;
-                if (!(direction == Direction.SE || direction == Direction.S || direction == Direction.SW))
+                if (Direction.Y <= 0)
                 {
                     playerAnimator.ChangeAnimation(1, 1, 4, fps);
                 }
-                direction = Direction.S;
+                Direction = directionList[2];
             }
             else if (KeyboardInput.IsKeyDown(Keys.Right))
             {
-                position.X += 1 * speed;
-                if (direction != Direction.E)
+                if (Direction.X < 0.8f)
                 {
                     playerAnimator.ChangeAnimation(13, 16, 6, fps);
                 }
-                direction = Direction.E;
+                Direction = directionList[6];
             }
             else if (KeyboardInput.IsKeyDown(Keys.Left))
             {
-                position.X -= 1 * speed;
-                if (direction != Direction.W)
+                if (Direction.X > -0.8f)
                 {
                     playerAnimator.ChangeAnimation(19, 20, 6, fps);
                 }
-                direction = Direction.W;
+                Direction = directionList[4];
             }
         }
     }
