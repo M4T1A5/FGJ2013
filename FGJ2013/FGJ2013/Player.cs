@@ -41,13 +41,13 @@ namespace FGJ2013
             {
                 directionList[i] = Vector2.Normalize(directionList[i]);
             }
-        }
+        }  
 
         public void Update(KeyboardState KeyboardInput, GameTime gameTime)
         {
             keyboardController(KeyboardInput);
 
-            Camera.Position = new Vector2(1280 / 2, 720 / 2) - new Vector2((position.X), (position.Y));
+            //Camera.Position = new Vector2(1280 / 2, 720 / 2) - new Vector2((position.X), (position.Y));
 
             if (KeyboardInput.IsKeyDown(Keys.Space))
             {

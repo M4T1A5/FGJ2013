@@ -60,6 +60,9 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FuncWorks.XNA.XTiled">
+      <HintPath>..\..\..\XTiled-0.8.1.1i\x86\FuncWorks.XNA.XTiled.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
@@ -73,10 +76,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animator.cs" />
+    <Compile Include="Camera.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="GameEventHandler.cs" />
     <Compile Include="Hitbox.cs" />
-    <Compile Include="Map.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
