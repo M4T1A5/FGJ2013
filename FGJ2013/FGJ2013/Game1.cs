@@ -157,7 +157,7 @@ namespace FGJ2013
         protected override void Draw(GameTime gameTime)
        {
             GraphicsDevice.Clear(Color.Black);
-           spriteBatch.Begin(SpriteSortMode.FrontToBack,
+           spriteBatch.Begin(SpriteSortMode.Deferred,
                        BlendState.AlphaBlend,
                        null,
                        null,
