@@ -25,6 +25,7 @@ namespace FGJ2013
         Player player;
         List<Enemy> enemies;
         Hitbox hitbox;
+        SoundEffect heartbeat;
 
         public Game1()
         {
@@ -64,6 +65,7 @@ namespace FGJ2013
             };
             map = Content.Load<Map>("Maps/Harjoituz");
             hitbox = new Hitbox(map);
+            heartbeat = Content.Load<SoundEffect>("GGJ13_Theme");
 
             // TODO: use this.Content to load your game content here
         }
@@ -100,6 +102,7 @@ namespace FGJ2013
                 enemy.Update(gameTime, player.position);
                 enemy.position += hitbox.MapHit(enemy.position);
             }
+            heartbeat.Play(0.7f, (player.position - enemies[0].position).Length()  % 1, 0.0f);
 
             base.Update(gameTime);
         }
