@@ -76,6 +76,7 @@ namespace FGJ2013
                 new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsu"), new Vector2(230)),
                 new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsuDark"), new Vector2(260))
             };
+            Map.InitObjectDrawing(GraphicsDevice);
             map = Content.Load<Map>("Maps/Stage");
             mapView = map.Bounds;
             hitbox = new Hitbox(map);
@@ -171,20 +172,37 @@ namespace FGJ2013
                 playerSourceID = 0;
                 //throw;
             }
-           spriteBatch.Begin(SpriteSortMode.Deferred,
-                       BlendState.AlphaBlend,
-                       null,
-                       null,
-                       null,
-                       null,
-                       camera.get_transformation(GraphicsDevice /*Send the variable that has your graphic device here*/));
+            spriteBatch.Begin(SpriteSortMode.FrontToBack,
+                        BlendState.AlphaBlend,
+                        null,
+                        null,
+                        null,
+                        null,
+                        camera.get_transformation(GraphicsDevice /*Send the variable that has your graphic device here*/));
             
             // TODO: Add your drawing code here
             //map.Draw(spriteBatch, mapView);
-           DrawLayer(spriteBatch, map, 0, ref mapView, 0.0f, playerSourceID);
-           DrawLayer(spriteBatch, map, 1, ref mapView, 0.1f, playerSourceID);
-           DrawLayer(spriteBatch, map, 2, ref mapView, 0.2f, playerSourceID);
-           DrawLayer(spriteBatch, map, 3, ref mapView, 0.3f, playerSourceID);
+            DrawLayer(spriteBatch, map, 0, ref mapView, 0.1f, playerSourceID);
+            DrawLayer(spriteBatch, map, 1, ref mapView, 0.2f, playerSourceID);
+            DrawLayer(spriteBatch, map, 2, ref mapView, 0.3f, playerSourceID);
+            DrawLayer(spriteBatch, map, 3, ref mapView, 0.4f, playerSourceID);
+            for (var i = 0; i < map.ObjectLayers[0].MapObjects.Count<MapObject>(); i++ )
+            {
+                var pill = map.ObjectLayers[0].MapObjects[i];
+                var PillTileX = (int)Math.Floor((double)pill.Bounds.X / map.TileWidth);
+                var PillTileY = (int)Math.Floor((double)pill.Bounds.Y / map.TileHeight);
+                var PillSourceID = map.TileLayers[map.TileLayers.Count - 1]
+                        .Tiles[PillTileX][PillTileY].SourceID;
+                if (PillSourceID != playerSourceID)
+                {
+                    map.DrawMapObject(spriteBatch, 0, i, mapView, 0.0f);
+                }
+                else
+                {
+                    map.DrawMapObject(spriteBatch, 0, i, mapView, 0.5f);
+                }
+            }
+            //map.DrawObjectLayer(spriteBatch, 0, mapView, 0.0f);
             player.Draw(spriteBatch);
             foreach (var enemy in enemies)
             {
