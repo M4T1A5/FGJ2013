@@ -121,7 +121,15 @@ namespace FGJ2013
 
                 }
             }
-            hitbox.AtDoor(player);
+            if (KeyboardInput.IsKeyDown(Keys.W) && GameEventHandler.currentEvent != GameEvents.DoorOpen)
+            {
+                GameEventHandler.currentEvent = GameEvents.DoorOpen;
+                hitbox.AtDoor(player); 
+            }
+            else if (KeyboardInput.IsKeyUp(Keys.W))
+            {
+                GameEventHandler.currentEvent = GameEvents.None;
+            }
 
             if (heartbeatInstance.State != SoundState.Playing)
             {
