@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using FuncWorks.XNA.XTiled;
 using System.Diagnostics;
+using System.Media;
 
 
 namespace FGJ2013
@@ -33,7 +34,14 @@ namespace FGJ2013
         SoundEffect heartbeat;
         SoundEffectInstance heartbeatInstance;
         bool keyPressed = false;
-        
+        SoundEffect MenuMusic;
+        SoundEffect Musa1;
+        SoundEffect Musa2;
+        SoundEffect Musa3;
+        SoundEffect Musa4;
+        SoundEffect kirkuna;
+
+        SoundEffectInstance instance;
         
 
 
@@ -137,6 +145,16 @@ namespace FGJ2013
             End2 = Content.Load<Texture2D>("StartImages/End2");
             End3 = Content.Load<Texture2D>("StartImages/End3");
 
+            MenuMusic = Content.Load<SoundEffect>("Music/1 musa v1");
+            Musa1 = Content.Load<SoundEffect>("Music/1_musiikki");
+            Musa2 = Content.Load<SoundEffect>("Music/2_musiikki");
+            Musa3 = Content.Load<SoundEffect>("Music/3_musiikki");
+            Musa4 = Content.Load<SoundEffect>("Music/4_musiikki");
+            kirkuna = Content.Load<SoundEffect>("Music/kirkuna");
+
+            instance = MenuMusic.CreateInstance();
+            instance.IsLooped = true;
+            instance.Play();
 
             player = new Player(PlayerTexture, new Vector2(55));
 
@@ -202,6 +220,10 @@ namespace FGJ2013
                     if (startnumber > 3)
                     {
                         Data.GameState = State.Play;
+                        instance.Stop(true);
+                        instance = Musa1.CreateInstance();
+                        instance.IsLooped = true;
+                        instance.Play();
                         break;
                     }
 
@@ -231,6 +253,7 @@ namespace FGJ2013
                             new Rectangle((int)enemy.position.X + 10, (int)enemy.position.Y + 45, 35, 35))) //enemy hits player
                         {
                             Reset();
+                            kirkuna.Play();
                         }
                     }
 
@@ -283,6 +306,8 @@ namespace FGJ2013
                     break;
                 case State.End:
                     endnumber += 1;
+                    if (endnumber == 300)
+                        kirkuna.Play();
                     if (KeyboardInput.IsKeyDown(Keys.Space))
                     {
                         Data.GameState = State.Menu;
@@ -434,18 +459,16 @@ namespace FGJ2013
                 case State.End:
                     spriteBatch.Begin();
 
-                    //while (endnumber < 1000)
-                    //{
-                    //    spriteBatch.Draw(End1, Vector2.Zero, Color.White);
-                    //}
-                    //while (1000 <= endnumber && endnumber < 1008)
-                    //{
-                    //    spriteBatch.Draw(End2, Vector2.Zero, Color.White); 
-                    //}
-                    //while (1008 <= endnumber)
-                    //{
-                    //    spriteBatch.Draw(End3, Vector2.Zero, Color.White); 
-                    //}
+
+                    spriteBatch.Draw(End3, Vector2.Zero, Color.White);
+                    if (330 > endnumber)
+                    {
+                        spriteBatch.Draw(End2, Vector2.Zero, Color.White); 
+                    }
+                    if (300 > endnumber)
+                    {
+                        spriteBatch.Draw(End1, Vector2.Zero, Color.White); 
+                    }
 
                     spriteBatch.End();
                     break;
@@ -550,6 +573,8 @@ namespace FGJ2013
             switch (DrugsCount)
             {
                 case 1: // change props
+
+
                     foreach (var tileset in map.Tilesets)
                     {
                         if (tileset.Name == "propsit")
@@ -559,6 +584,30 @@ namespace FGJ2013
                     }
                     break;
                 case 2: // change enemies
+                    
+                        instance.Stop(true);
+                        instance = Musa2.CreateInstance();
+                        instance.IsLooped = true;
+                        instance.Play();
+
+
+                    break;
+                case 3: // change player
+                    
+                        instance.Stop(true);
+                        instance = Musa3.CreateInstance();
+                        instance.IsLooped = true;
+                        instance.Play();
+
+                    player.ChangeTexture(PlayerTextureDark);
+                    break;
+                case 4: // change maptextures
+                    
+                        instance.Stop(true);
+                        instance = Musa4.CreateInstance();
+                        instance.IsLooped = true;
+                        instance.Play();
+
                     foreach (var enemy in enemies)
                     {
                         if (enemy.Type == Enemy.EnemyType.Nurse)
@@ -570,11 +619,7 @@ namespace FGJ2013
                             enemy.ChangeTexture(DoctorTextureDark);
                         }
                     }
-                    break;
-                case 3: // change player
-                    player.ChangeTexture(PlayerTextureDark);
-                    break;
-                case 4: // change maptextures
+
                     foreach (var tileset in map.Tilesets)
                     {
                         if (tileset.Name == "tilesetti3")
