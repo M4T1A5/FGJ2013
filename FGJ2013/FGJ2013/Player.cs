@@ -62,7 +62,7 @@ namespace FGJ2013
                 }
             }
 
-            Debug.WriteLine(Direction);
+            //Debug.WriteLine(Direction);
 
             playerAnimator.Update(gameTime);
 

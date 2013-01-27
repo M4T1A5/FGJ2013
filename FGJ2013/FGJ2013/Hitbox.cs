@@ -18,7 +18,6 @@ namespace FGJ2013
     {
         public List<Rectangle> hitboxes;
         public List<Rectangle> doors;
-        Rectangle playerRectangle;
         public Hitbox(Map map)
         {
             hitboxes = new List<Rectangle>();
@@ -33,7 +32,7 @@ namespace FGJ2013
                 }                
             }
             doors = new List<Rectangle>();
-            foreach (var tiles in map.TileLayers[map.TileLayers.Count - 3].Tiles)
+            foreach (var tiles in map.TileLayers[1].Tiles)
             {
                 foreach (var tile in tiles)
                 {
@@ -48,12 +47,13 @@ namespace FGJ2013
         public Vector2 MapHit(Vector2 CharacterPosition)
         {
             Vector2 hit = Vector2.Zero;
-            playerRectangle = new Rectangle((int)CharacterPosition.X + 10, (int)CharacterPosition.Y + 45, 35, 35);
+            var playerRectangle = new Rectangle((int)CharacterPosition.X + 10, (int)CharacterPosition.Y + 45, 35, 35);
             foreach (Rectangle hitbox in hitboxes)
             {
                 if (hitbox.Intersects(playerRectangle))
                 {
-                    Vector2 difference = new Vector2((playerRectangle.Location.X + playerRectangle.Width / 2) - (hitbox.Location.X + hitbox.Width / 2), (playerRectangle.Location.Y + playerRectangle.Height / 2) - (hitbox.Location.Y + hitbox.Height / 2));
+                    Vector2 difference = new Vector2((playerRectangle.Location.X + playerRectangle.Width / 2) - (hitbox.Location.X + hitbox.Width / 2),
+                        (playerRectangle.Location.Y + playerRectangle.Height / 2) - (hitbox.Location.Y + hitbox.Height / 2));
 
                     if (Math.Abs(difference.Y) > Math.Abs(difference.X))
                     {
@@ -83,18 +83,48 @@ namespace FGJ2013
                 return false;
         }
 
-        public bool AtDoor(Player player)
+        public void AtDoor(Player player)
         {
+            var playerRectangle = new Rectangle((int)player.position.X + 10, (int)player.position.Y + 45, 35, 35);
             foreach (var door in doors)
             {
-                if (door.Intersects(new Rectangle((int)player.position.X, 
-                    (int)player.position.Y, 35, 35)))
+                if (door.Intersects(new Rectangle((int)player.position.X + 9, 
+                    (int)player.position.Y + 44, 37, 37)))
                 {
-                    Debug.WriteLine("Suddenly door " + door.Location);
-                    return true;
+                    Vector2 difference = new Vector2((playerRectangle.Location.X + playerRectangle.Width / 2) - (door.Location.X + door.Width / 2),
+                        (playerRectangle.Location.Y + playerRectangle.Height / 2) - (door.Location.Y + door.Height / 2)); // vector from door to player
+
+                    if (Math.Abs(difference.Y) > Math.Abs(difference.X))
+                    {
+                        if (difference.Y < 0) // above
+                        {
+                            player.position.Y += door.Height * 4;
+                            break;
+                        }
+                        else if (difference.Y > 0) // below
+                        {
+                            player.position.Y -= door.Height * 4;
+                            break;
+                        }
+
+                    }
+                    else if (Math.Abs(difference.X) > Math.Abs(difference.Y))
+                    {
+                        if (difference.X < 0) // left
+                        {
+                            player.position.X += door.Width * 4;
+                            break;
+                        }
+                        else if (difference.X > 0) // right
+                        {
+                            player.position.X -= door.Width * 4;
+                            break;
+                        }
+                    }
+
+                    Debug.WriteLine("Suddenly door " + door.Location + player.position);
                 }
             }
-            return false;
         }
     }
 }

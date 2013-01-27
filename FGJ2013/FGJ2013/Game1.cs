@@ -66,10 +66,10 @@ namespace FGJ2013
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark"), new Vector2(50));
+            player = new Player(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark"), new Vector2(350));
             enemies = new List<Enemy> 
             {
-                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimations"), new Vector2(50)),
+                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimations"), new Vector2(55)),
                 new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark"), new Vector2(80)),
                 new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctor"), new Vector2(130)),
                 new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctorDark"), new Vector2(170)),
@@ -160,8 +160,17 @@ namespace FGJ2013
             GraphicsDevice.Clear(Color.Black);
             var playerTileX = (int)Math.Floor(player.position.X / map.TileWidth);
             var playerTileY = (int)Math.Floor((player.position.Y + 45) / map.TileHeight);
-            var playerSourceID = map.TileLayers[map.TileLayers.Count - 1]
-                .Tiles[playerTileX][playerTileY].SourceID;
+            var playerSourceID = 0;
+            try
+            {
+                playerSourceID = map.TileLayers[map.TileLayers.Count - 1]
+                        .Tiles[playerTileX][playerTileY].SourceID;
+            }
+            catch (NullReferenceException)
+            {
+                playerSourceID = 0;
+                //throw;
+            }
            spriteBatch.Begin(SpriteSortMode.Deferred,
                        BlendState.AlphaBlend,
                        null,
