@@ -427,6 +427,13 @@ namespace FGJ2013
             switch (DrugsCount)
             {
                 case 1: // change props
+                    foreach (var tileset in map.Tilesets)
+                    {
+                        if (tileset.Name == "propsit")
+                        {
+                            tileset.Texture = PropsTileSheetDark;
+                        }
+                    }
                     break;
                 case 2: // change enemies
                     foreach (var enemy in enemies)
@@ -438,10 +445,17 @@ namespace FGJ2013
                     player.ChangeTexture(PlayerTextureDark);
                     break;
                 case 4: // change maptextures
+                    foreach (var tileset in map.Tilesets)
+                    {
+                        if (tileset.Name == "tilesetti3")
+                        {
+                            tileset.Texture = WorldTileSheetDark;
+                        }
+                    }
                     break;
                 case 5: // win game
-                    break;
                     this.Exit();
+                    break;
                 default:
                     Debug.WriteLine("What??");
                     break;
