@@ -42,10 +42,8 @@ namespace FGJ2013
         SoundEffect kirkuna;
 
         SoundEffectInstance instance;
-        
-
-
         static int DrugsCount = 0;
+        List<Rectangle> pillLocations;
 
         Texture2D PlayerTexture;
         Texture2D PlayerTextureDark;
@@ -89,7 +87,7 @@ namespace FGJ2013
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            Window.Title = "My heart will go on";
+            Window.Title = "Less Than Three";
             graphics.PreferredBackBufferWidth = width;
             graphics.PreferredBackBufferHeight = height;
             graphics.ApplyChanges();
@@ -108,6 +106,15 @@ namespace FGJ2013
             StartButton = new Rectangle(40, 530, 230, 50);
             ExitButton = new Rectangle(40, 600, 230, 50);
             CreditsButton = new Rectangle(40, 670, 230, 50);
+
+            pillLocations = new List<Rectangle>
+            {
+                Rectangle.Empty,
+                Rectangle.Empty,
+                Rectangle.Empty,
+                Rectangle.Empty,
+                Rectangle.Empty
+            };
 
             base.Initialize();
         }
@@ -263,6 +270,7 @@ namespace FGJ2013
                             new Rectangle((int)map.ObjectLayers[0].MapObjects[i].Bounds.X, (int)map.ObjectLayers[0].MapObjects[i].Bounds.Y, 20, 20))) //player collects drug
                         {
                             CollectDrug();
+                            pillLocations[i] = map.ObjectLayers[0].MapObjects[i].Bounds;
                             map.ObjectLayers[0].MapObjects[i].Bounds.Location = new Point(10000,10000);
                         }
                     }
@@ -563,7 +571,27 @@ namespace FGJ2013
             //reset tiles back to normal
             DrugsCount = -1;
             CollectDrug();
-            player = new Player(PlayerTexture, new Vector2(350));
+            player = new Player(PlayerTexture, new Vector2(55));
+            enemies = new List<Enemy> 
+            {
+                new Enemy(NurseTexture, new Vector2(550, 255), Enemy.EnemyType.Nurse),
+                new Enemy(NurseTexture, new Vector2(2090, 933), Enemy.EnemyType.Nurse),
+                new Enemy(NurseTexture, new Vector2(1645, 735), Enemy.EnemyType.Nurse),
+                new Enemy(NurseTexture, new Vector2(1027, 1042), Enemy.EnemyType.Nurse),
+
+                new Enemy(DoctorTexture, new Vector2(2133, 254), Enemy.EnemyType.Doctor),
+                new Enemy(DoctorTexture, new Vector2(1197, 638), Enemy.EnemyType.Doctor),
+            };
+
+            for (var i = 0; i < map.ObjectLayers[0].MapObjects.Count<MapObject>(); i++)
+            {
+                if (pillLocations[i] != Rectangle.Empty)
+                {
+                    map.ObjectLayers[0].MapObjects[i].Bounds = pillLocations[i];
+                    pillLocations[i] = Rectangle.Empty;
+                }
+            }
+
             Data.GameState = State.Menu;
         }
 
