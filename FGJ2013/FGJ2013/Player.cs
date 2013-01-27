@@ -71,6 +71,11 @@ namespace FGJ2013
             position += Direction * speed;
         }
 
+        public void ChangeTexture(Texture2D Texture)
+        {
+            playerAnimator.texture = Texture;
+        }
+
         public void Draw(SpriteBatch SB)
         {
             playerAnimator.Draw(SB, position);

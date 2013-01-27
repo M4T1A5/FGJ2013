@@ -43,6 +43,11 @@ namespace FGJ2013
             //color = Color;
         }
 
+        public void ChangeTexture(Texture2D Texture)
+        {
+            animator.texture = Texture;
+        }
+
         public void Update(GameTime gameTime, Vector2 PlayerPosition)
         {
             face = Vector2.Normalize(PlayerPosition - position);

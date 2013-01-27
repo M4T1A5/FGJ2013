@@ -44,7 +44,7 @@
  </objectgroup>
  <layer name="hitboxit" width="100" height="100" opacity="0.3">
   <data encoding="base64" compression="zlib">
-   eJzt10FygzAMQNH0/qfKzbqmkwQjy5ZI35thU4NN8ltwnz+Px3Pj8VfWPNWy7nfk3LM5R9d81+Oqrj0iY5Fz9TinRy969KJHL3r0ktljdo+Zvd+NnFPtrj2ymnXrc9fn1UzXT9dV0+N4XbVv7hG5rpoex/FqehzHq+lxHK+W2SO6D43MEVln5t520aPfkdVj5JwOv4OrrP58elyjRy969KJHL3r00q2HY34/G722yp2/y8w5unTasfa7z3j2XUbnHR2fWXsVPWJrr6JHbO1V7tLj1Rx6xNfo8vcx8v7W49rY2byj4zNrr7Kzx9W96ui80fGZtVfZ1WPFNXrsW2Pmf7mzd4P3R+0Rud8qle/zruvq0Wvdbj2ynw+detzx/fHNPUavqzLSY2SOFe/VWXroMes/9Mh45u6851c/+5Yed5Nxz3rk0aOX2b1t9wMAAAAAAAAAAAAAAAAAAAAAAAAAAOAX1DnOhw==
+   eJzt10uSgzAMBcDM/U+Vm81qan5JkC0Z26S7ig0YyfCCIfeP2+1+4vZXVZ3Zqub7NfbRedGaLeMi+6JzXknrdR+NfXUvo3lEex3t66kzW3UeR2Pk8dpOeRy9P1rJQx5HdsrjVS95/B+b/cas/t7tGTPbrnlUZbZaPjutV1W5Zq5hNHm0XcNoO+WRrSOP72Mtv+tIL3kc14m+RyM1Kta1nvNms179Pj7biOcj8z6t3HrqzyaP9baqPKL3+apGX5882uySx88x8sjVrxwrj3z91rlE1q2rWi2PyBh55Oq3zsWW+57tPXeWne9lZY1Vcjqj97NrPLqXz+rII9+jIo9o3ejxTO9R5NHXe5Rd8nhUQx79PTwf6/ReKY/I+/td8mj9NorW7T2e6T3KWXmMOEce5/XI/HfI/pd4hzxmbpG5nH1Pnpn5Pl+1rzzW6rtaHtXrtTxyva+cx47vj9b7POo7J+uqz0ekhjxqvEMeFWvumXN+tO8qeeymYs7yqCOPtWTW2B02AAAAAAAAAAAAAAAAAAAAAAAAAACAT/839Gs=
   </data>
  </layer>
  <layer name="huoneet" width="100" height="100" visible="0" opacity="0.63">

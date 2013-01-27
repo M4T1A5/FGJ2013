@@ -99,11 +99,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StartImages\eyeview2.png">
-      <Name>eyeview2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="StartImages\Found it v1.png">
       <Name>Found it v1</Name>
       <Importer>TextureImporter</Importer>
@@ -119,13 +114,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="StartImages\talletan.png">
-      <Name>talletan</Name>
+    <Compile Include="StartImages\start2.png">
+      <Name>start2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="StartImages\talletan2.png">
-      <Name>talletan2</Name>
+    <Compile Include="StartImages\start3.png">
+      <Name>start3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -154,6 +149,20 @@
   <ItemGroup>
     <Compile Include="Maps\worldsheet.png">
       <Name>worldsheet</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="StartImages\start1.png">
+      <Name>start1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="StartImages\start4.png">
+      <Name>start4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

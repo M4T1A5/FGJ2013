@@ -33,6 +33,34 @@ namespace FGJ2013
         SoundEffect heartbeat;
         SoundEffectInstance heartbeatInstance;
         bool keyPressed = false;
+        
+        
+
+
+        static int DrugsCount = 0;
+
+        Texture2D PlayerTexture;
+        Texture2D PlayerTextureDark;
+        Texture2D DoctorTexture;
+        Texture2D DoctorTextureDark;
+        Texture2D NurseTexture;
+        Texture2D NurseTextureDark;
+
+        Texture2D WorldTileSheet;
+        Texture2D WorldTileSheetDark;
+        Texture2D PropsTileSheet;
+        Texture2D PropsTileSheetDark;
+
+        Texture2D Start1;
+        Texture2D Start2;
+        Texture2D Start3;
+        Texture2D Start4;
+
+        int start1 = 255;
+        int start2 = 0;
+        int start3 = 0;
+        int start4 = 0;
+
 
         //Texture2D maptexture;
         float shortestDistance;
@@ -69,24 +97,29 @@ namespace FGJ2013
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Data.PlayerTexture = Content.Load<Texture2D>("Animations/AllCharacterAnimations");
-            Data.PlayerTextureDark = Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark");
-            Data.DoctorTexture = Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctor");
-            Data.DoctorTextureDark = Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctorDark");
-            Data.NurseTexture = Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsu");
-            Data.NurseTextureDark = Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsuDark");
+            PlayerTexture = Content.Load<Texture2D>("Animations/AllCharacterAnimations");
+            PlayerTextureDark = Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark");
+            DoctorTexture = Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctor");
+            DoctorTextureDark = Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctorDark");
+            NurseTexture = Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsu");
+            NurseTextureDark = Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsuDark");
 
-            Data.WorldTileSheet = Content.Load<Texture2D>("Maps/worldsheet");
-            Data.WorldTileSheetDark = Content.Load<Texture2D>("Maps/hellworldsheet");
-            Data.PropsTileSheet = Content.Load<Texture2D>("Maps/props");
-            Data.PropsTileSheetDark = Content.Load<Texture2D>("Maps/hellprops");
+            WorldTileSheet = Content.Load<Texture2D>("Maps/worldsheet");
+            WorldTileSheetDark = Content.Load<Texture2D>("Maps/hellworldsheet");
+            PropsTileSheet = Content.Load<Texture2D>("Maps/props");
+            PropsTileSheetDark = Content.Load<Texture2D>("Maps/hellprops");
+
+            Start1 = Content.Load<Texture2D>("StartImages/start1");
+            Start2 = Content.Load<Texture2D>("StartImages/start2");
+            Start3 = Content.Load<Texture2D>("StartImages/start3");
+            Start4 = Content.Load<Texture2D>("StartImages/start4");
 
 
-            player = new Player(Data.PlayerTexture, new Vector2(350));
+            player = new Player(PlayerTexture, new Vector2(350));
 
             enemies = new List<Enemy> 
             {
-                new Enemy(Data.NurseTexture, new Vector2(300)),
+                new Enemy(NurseTexture, new Vector2(300)),
             };
             Map.InitObjectDrawing(GraphicsDevice);
             map = Content.Load<Map>("Maps/Stage");
@@ -126,6 +159,7 @@ namespace FGJ2013
                 case State.None:
                     break;
                 case State.Start:
+
                     break;
                 case State.Play:
 
@@ -153,11 +187,12 @@ namespace FGJ2013
                         if (hitbox.PlayerHit(new Rectangle((int)player.position.X + 10, (int)player.position.Y + 45, 35, 35),
                             new Rectangle((int)map.ObjectLayers[0].MapObjects[i].Bounds.X, (int)map.ObjectLayers[0].MapObjects[i].Bounds.Y, 20, 20))) //player collects drug
                         {
-                            Data.DrugsCount++;
+                            CollectDrug();
+                            map.ObjectLayers[0].MapObjects[i].Bounds.Location = new Point(10000,10000);
                         }
                     }
 
-                    if (KeyboardInput.IsKeyDown(Keys.W) && KeyboardInput.IsKeyDown(Keys.U) && KeyboardInput.IsKeyDown(Keys.B) && !keyPressed)
+                    if (KeyboardInput.IsKeyDown(Keys.W) && !keyPressed)
                     {
                         keyPressed = true;
                         hitbox.AtDoor(player); 
@@ -225,13 +260,7 @@ namespace FGJ2013
                 player.SourceID = 0;
                 //throw;
             }
-            spriteBatch.Begin(SpriteSortMode.FrontToBack,
-                        BlendState.AlphaBlend,
-                        null,
-                        null,
-                        null,
-                        null,
-                        camera.get_transformation(GraphicsDevice /*Send the variable that has your graphic device here*/));
+            
             
             // TODO: Add your drawing code here
             //map.Draw(spriteBatch, mapView);
@@ -241,8 +270,27 @@ namespace FGJ2013
                 case State.None:
                     break;
                 case State.Start:
+
+                    spriteBatch.Begin(SpriteSortMode.FrontToBack,BlendState.AlphaBlend);
+
+                    spriteBatch.Draw(Start4, Vector2.Zero, new Color(start4, start4, start4, start4));
+                    spriteBatch.Draw(Start3, Vector2.Zero, new Color(start3, start3, start3, start3));
+                    spriteBatch.Draw(Start2, Vector2.Zero, new Color(start2, start2, start2, start2));
+                    spriteBatch.Draw(Start1, Vector2.Zero, new Color(start1, start1, start1, start1));
+
+                    spriteBatch.End();
+
                     break;
                 case State.Play:
+
+                    spriteBatch.Begin(SpriteSortMode.FrontToBack,
+                        BlendState.AlphaBlend,
+                        null,
+                        null,
+                        null,
+                        null,
+                        camera.get_transformation(GraphicsDevice /*Send the variable that has your graphic device here*/));
+
                     DrawLayer(spriteBatch, map, 0, ref mapView, 0.1f, player.SourceID);
                     DrawLayer(spriteBatch, map, 1, ref mapView, 0.2f, player.SourceID);
                     DrawLayer(spriteBatch, map, 2, ref mapView, 0.3f, player.SourceID);
@@ -252,8 +300,17 @@ namespace FGJ2013
                         var pill = map.ObjectLayers[0].MapObjects[i];
                         var PillTileX = (int)Math.Floor((double)pill.Bounds.X / map.TileWidth);
                         var PillTileY = (int)Math.Floor((double)pill.Bounds.Y / map.TileHeight);
-                        var PillSourceID = map.TileLayers[map.TileLayers.Count - 1]
-                                .Tiles[PillTileX][PillTileY].SourceID;
+                        var PillSourceID = 0;
+                        try
+                        {
+                            PillSourceID = map.TileLayers[map.TileLayers.Count - 1]
+                                                    .Tiles[PillTileX][PillTileY].SourceID;
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            
+                            //throw;
+                        }
                         if (PillSourceID != player.SourceID)
                         {
                             map.DrawMapObject(spriteBatch, 0, i, mapView, 0.0f);
@@ -285,6 +342,9 @@ namespace FGJ2013
                             enemy.Draw(spriteBatch); 
                         }
                     }
+
+                    spriteBatch.End();
+
                     break;
                 case State.End:
                     break;
@@ -294,7 +354,6 @@ namespace FGJ2013
 
 
                         
-            spriteBatch.End();
             base.Draw(gameTime);
         }
 
@@ -359,6 +418,33 @@ namespace FGJ2013
                             layerDepth);
                     }
                 }
+            }
+        }
+
+        void CollectDrug()
+        {
+            DrugsCount++;
+            switch (DrugsCount)
+            {
+                case 1: // change props
+                    break;
+                case 2: // change enemies
+                    foreach (var enemy in enemies)
+                    {
+                        enemy.ChangeTexture(DoctorTextureDark);
+                    }
+                    break;
+                case 3: // change player
+                    player.ChangeTexture(PlayerTextureDark);
+                    break;
+                case 4: // change maptextures
+                    break;
+                case 5: // win game
+                    break;
+                    this.Exit();
+                default:
+                    Debug.WriteLine("What??");
+                    break;
             }
         }
     }

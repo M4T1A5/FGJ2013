@@ -14,7 +14,7 @@ namespace FGJ2013
 {
     class Animator
     {
-        Texture2D texture;
+        public Texture2D texture;
         int frames;
         int width;
         int height;

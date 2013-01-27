@@ -6,12 +6,9 @@ Content\Animations\AllCharacterAnimationsDoctor.xnb
 Content\Animations\AllCharacterAnimationsDoctorDark.xnb
 Content\Animations\AllCharacterAnimationsHoitsuDark.xnb
 Content\Animations\AllCharacterAnimationsDark.xnb
-Content\StartImages\eyeview2.xnb
 Content\StartImages\Found it v1.xnb
 Content\StartImages\Found It v2.xnb
 Content\StartImages\handheart.xnb
-Content\StartImages\talletan.xnb
-Content\StartImages\talletan2.xnb
 Content\Maps\hellprops.xnb
 Content\Maps\hellworldsheet.xnb
 Content\Maps\stage.xnb
@@ -23,3 +20,7 @@ Content\Maps\stage\03.xnb
 Content\Maps\stage\04.xnb
 Content\Maps\props.xnb
 Content\Maps\worldsheet.xnb
+Content\StartImages\start2.xnb
+Content\StartImages\start3.xnb
+Content\StartImages\start1.xnb
+Content\StartImages\start4.xnb
