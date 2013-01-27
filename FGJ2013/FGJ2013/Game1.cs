@@ -51,6 +51,12 @@ namespace FGJ2013
         Texture2D PropsTileSheet;
         Texture2D PropsTileSheetDark;
 
+        Rectangle StartButton;
+        Rectangle ExitButton;
+        Rectangle CreditsButton;
+        Texture2D Menu;
+        Texture2D Credits;
+
         Texture2D Start1;
         Texture2D Start2;
         Texture2D Start3;
@@ -90,6 +96,11 @@ namespace FGJ2013
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            StartButton = new Rectangle(40, 530, 230, 50);
+            ExitButton = new Rectangle(40, 600, 230, 50);
+            CreditsButton = new Rectangle(40, 670, 230, 50);
+
             base.Initialize();
         }
 
@@ -113,6 +124,8 @@ namespace FGJ2013
             WorldTileSheetDark = Content.Load<Texture2D>("Maps/hellworldsheet");
             PropsTileSheet = Content.Load<Texture2D>("Maps/props");
             PropsTileSheetDark = Content.Load<Texture2D>("Maps/hellprops");
+
+            Menu = Content.Load<Texture2D>("titlescreenhearthand2");
 
             Start1 = Content.Load<Texture2D>("StartImages/start1");
             Start2 = Content.Load<Texture2D>("StartImages/start2");
@@ -266,6 +279,28 @@ namespace FGJ2013
                         Data.GameState = State.Start;
                     }
                     break;
+                case State.Menu:
+                    if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+                    {
+                        var mouse = new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 1, 1);
+                        if (StartButton.Intersects(mouse))
+                        {
+                            Data.GameState = State.Start;
+                            this.IsMouseVisible = false;
+                        }
+                        if (ExitButton.Intersects(mouse))
+                        {
+                            this.Exit();
+                        }
+                        if (CreditsButton.Intersects(mouse))
+                        {
+                            Data.GameState = State.Credits;
+                            this.IsMouseVisible = false;
+                        }
+                    }
+                    break;
+                case State.Credits:
+                    break;
                 default:
                     break;
             }
@@ -400,6 +435,16 @@ namespace FGJ2013
                     //}
 
                     spriteBatch.End();
+                    break;
+                case State.Menu:
+                    this.IsMouseVisible = true;
+                    spriteBatch.Begin();
+                    spriteBatch.Draw(Menu, Vector2.Zero, Color.White);
+                    spriteBatch.End();
+                    Debug.Write(Mouse.GetState().X + " ");
+                    Debug.Write(Mouse.GetState().Y + "\n");
+                    break;
+                case State.Credits:
                     break;
                 default:
                     break;

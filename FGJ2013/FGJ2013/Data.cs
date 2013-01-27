@@ -18,11 +18,13 @@ namespace FGJ2013
         None = 0,
         Start,
         Play,
-        End
+        End,
+        Menu,
+        Credits,
     }
 
     public static class Data
     {
-        public static State GameState = State.End;
+        public static State GameState = State.Menu;
     }
 }
