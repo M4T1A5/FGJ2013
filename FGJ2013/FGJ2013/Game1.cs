@@ -318,6 +318,11 @@ namespace FGJ2013
                         kirkuna.Play();
                     if (KeyboardInput.IsKeyDown(Keys.Space))
                     {
+
+                        instance.Stop(true);
+                        instance = MenuMusic.CreateInstance();
+                        instance.IsLooped = true;
+                        instance.Play();
                         Data.GameState = State.Menu;
                     }
                     break;
@@ -344,6 +349,11 @@ namespace FGJ2013
                 case State.Credits:
                     if (KeyboardInput.IsKeyDown(Keys.Escape))
                     {
+
+                        instance.Stop(true);
+                        instance = MenuMusic.CreateInstance();
+                        instance.IsLooped = true;
+                        instance.Play();
                         Data.GameState = State.Menu;
                     }
                     break;
@@ -591,6 +601,11 @@ namespace FGJ2013
                     pillLocations[i] = Rectangle.Empty;
                 }
             }
+
+            instance.Stop(true);
+            instance = MenuMusic.CreateInstance();
+            instance.IsLooped = true;
+            instance.Play();
 
             Data.GameState = State.Menu;
         }
