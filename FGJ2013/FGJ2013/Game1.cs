@@ -157,6 +157,10 @@ namespace FGJ2013
         protected override void Draw(GameTime gameTime)
        {
             GraphicsDevice.Clear(Color.Black);
+            var playerTileX = (int)Math.Floor(player.position.X / map.TileWidth);
+            var playerTileY = (int)Math.Floor(player.position.Y / map.TileHeight);
+            var playerSourceID = map.TileLayers[map.TileLayers.Count - 1]
+                .Tiles[playerTileX][playerTileY].SourceID;
            spriteBatch.Begin(SpriteSortMode.Deferred,
                        BlendState.AlphaBlend,
                        null,
@@ -166,7 +170,11 @@ namespace FGJ2013
                        camera.get_transformation(GraphicsDevice /*Send the variable that has your graphic device here*/));
             
             // TODO: Add your drawing code here
-            map.Draw(spriteBatch, mapView);
+            //map.Draw(spriteBatch, mapView);
+           DrawLayer(spriteBatch, map, 0, ref mapView, 0f, playerSourceID);
+           DrawLayer(spriteBatch, map, 1, ref mapView, 0.1f, playerSourceID);
+           DrawLayer(spriteBatch, map, 2, ref mapView, 0.2f, playerSourceID);
+           DrawLayer(spriteBatch, map, 3, ref mapView, 0.3f, playerSourceID);
             player.Draw(spriteBatch);
             foreach (var enemy in enemies)
             {
@@ -174,6 +182,69 @@ namespace FGJ2013
             }            
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+        public void DrawLayer(SpriteBatch spriteBatch, Map map, Int32 layerID, ref Rectangle region, Single layerDepth, int SourceID)
+        {
+
+            // Tiles are stored in a multidimensional array.
+            // By converting the map coordinates to tile coordinates 
+            // we can eliminate the need for bound checking
+            Int32 txMin = region.X / map.TileWidth;
+            Int32 txMax = (region.X + region.Width) / map.TileWidth;
+            Int32 tyMin = region.Y / map.TileHeight;
+            Int32 tyMax = (region.Y + region.Height) / map.TileHeight;
+
+            for (int y = tyMin; y <= tyMax; y++)
+            {
+                for (int x = txMin; x <= txMax; x++)
+                {
+
+                    // check that we aren't going outside the map, and that there is a tile at this location
+                    if (x < map.TileLayers[layerID].Tiles.Length && y < map.TileLayers[layerID].Tiles[x].Length
+                        && map.TileLayers[layerID].Tiles[x][y] != null)
+                    {
+                        if (map.TileLayers[map.TileLayers.Count - 1].Tiles[x][y] != null
+                            && map.TileLayers[map.TileLayers.Count - 1].Tiles[x][y].SourceID != SourceID)
+                        {
+                            map.TileLayers[layerID].OpacityColor = Color.Black; 
+                        }
+                        else
+                        {
+                            map.TileLayers[layerID].OpacityColor = Color.White;
+                        }
+                        // adjust the tiles map coordinates to screen space
+                        Rectangle tileTarget = map.TileLayers[layerID].Tiles[x][y].Target;
+                        tileTarget.X = tileTarget.X - region.X;
+                        tileTarget.Y = tileTarget.Y - region.Y;
+
+                        spriteBatch.Draw(
+                            // the texture (image) of the tile sheet is mapped by
+                            // Tile.SourceID -> TileLayers.TilesetID -> Map.Tileset.Texture
+                            map.Tilesets[map.SourceTiles[map.TileLayers[layerID].Tiles[x][y].SourceID].TilesetID].Texture,
+
+                            // screen space of the tile
+                            tileTarget,
+
+                            // source of the tile in the tilesheet
+                            map.SourceTiles[map.TileLayers[layerID].Tiles[x][y].SourceID].Source,
+
+                            // layers can have an opacity value, this property is Color.White at the opacity of the layer
+                            map.TileLayers[layerID].OpacityColor,
+
+                            // tile rotation value
+                            map.TileLayers[layerID].Tiles[x][y].Rotation,
+
+                            // origin of the tile, this is always the center of the tile
+                            map.SourceTiles[map.TileLayers[layerID].Tiles[x][y].SourceID].Origin,
+
+                            // tile horizontal or vertical flipping value
+                            map.TileLayers[layerID].Tiles[x][y].Effects,
+
+                            // depth for SpriteSortMode
+                            layerDepth);
+                    }
+                }
+            }
         }
     }
 }

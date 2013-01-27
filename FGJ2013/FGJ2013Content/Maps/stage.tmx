@@ -17,27 +17,27 @@
    eJztm8nu3EQQxtsECJAQwpF9SV6AhLAlESg3drL8BcoNSCAbDxB2SC5wY0mkBC5wY5XgDRKWd2B9B9Yzn4VK9pS6XN0ee9qOvp/0qeRxd9sed42rXD1VCOEyaB10OfROFcK7VbN9BXQl9B70fqud3l+pcax2Gq9f6jilsa4j93xvgG6EboJuhj7BwJ9WzfYt0K3QZ9DnrXZ6vx7Haucd37PWOKWxriP3fO+CtkHbobsjdgd0T0c7b3+73Z4ex7eONzW87yeV3dAj0KPQYxH7OPQE9LDRztvfbnewx/Fj48Tua2ms65DvJ5W10D0/f4B+hC5AF3vs9+aJd/zYOLH7WhrrOnL9w5vXv0G/Qz9BP/fY780T7/jLzrdV4f1+pPIs9Bz0PHQoYv+B/g3N7+N30PctK/ffG+cw9ELC8TdAG0Mzv9ZDV0FXQ9d0jFOaoZ4fJ6GXoVegVyP2WsRam6rm/v8C/dqycv+9cV6DXk84/hZoa2jm123Q7dAd0J0d45RmKP9IzRs8/0gdp91uCza2Vov7/4D+hP6C/g6Nf7b7SY40pXykfp4P4R9e/P8V9HXw/SM1/2i324nvdFe1uF/8cQO0sWq22/0kR5pSPlI/z4fwD+u+WvGT9o/c+Mr7na394HroA+hDaFNY9M+p5iNDnZ91X634SftHTnxV5w1enC5+8AX0ZWjmf9fv8xTykaGeH7n5ufX8SBmnzhusON3yM8//ppKPDOUfKXl1O/+2nh+546TmMZ7/1eM+lXG9Y7Gq/EPi/aHyD6udPo6eX16/0qwq/5B4f6j8w2qnj6Pnl9evNKXyD33/X4SORPpdB23uGHddq0378+PQCWf8WL++NqV+o+O92Dj6vMfKP7z45g3ozY7+ufYUdHrE8fvWbyTeSz3vVcVXqe9h52JT86e+1qr7WCxb/5i7Tc2f+lqr7mMh+YCOm2L596XoH2P7f9/8Q8dNsfx7Tv4h559aTxnL/8fKP7x2Q1t5vzt2/9Tr03UZqz6jbW5+tGzesKw9GRlbjtklb1x5P+y1S70+XZfR9Rnpb13L1EhdZyW5hcT7si21Er0+zFonJv3PQGc7zstaVyZW+qe8l57TOjIvvpdaiBXvy369PsxaJyb9pX5jYa0rs+o/3nvpuawj8+KX/fiOD0Br1WKdpY7v9lXN/tw4yYtvdqvxtZX+XfW/PQnX9yD0UMZ5jY0XvxzHtZ+AXqoW6yx1fHesavZ7cYzOp7z4Zk2Nr63076r/HUy4vqehZzLOa2z0/LHyndo/2vNVtq32er7p+oo3D/dW3f4x1PqzmH+UrKPp+WPlO7V/tOerbFvtvTzCm4dHq27/GGr9Wcw/StbRVuUfOo/w4n8+P8b1j9z4n8+Pcf0jl7cw9tvQKeh0xPata9I/+s23cxj7PPQR9HHE9q1rzs0/xnqPmpsn51rJ+1Pz96n6R+7/PPq8R62fq7l58rLWy9+n6h+5//Po4x/1c3XVdcy+9ZPS/jF2fbFUHbM+ruSDc/qfl54/um5g1RdS25eq89ffq+SDc/qfl563+n8dVn0htX0p/5B5MLf/eel5ey90H3Q/9AC0E9oV7PnktS/pH/X3auUnXl2yFHr+PBn+X3e7F9oH7YcOBHs+ee1LPj9S1mdObV2lnrey7vAodCzY6/tS25fyj9JxUl8u5fhqiv/39Uj9fT0HnY/YodaJDG1LPwf6kvr7+g30bcQOtU5kaFv6OUAIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgiZDv8BrseUXQ==
   </data>
  </layer>
- <layer name="veri" width="100" height="100" visible="0">
+ <layer name="veri" width="100" height="100">
   <data encoding="base64" compression="zlib">
    eJzt1ckJACAMBEDtvyKF9ObXj4gfD5ypYMlCNiUAAAB4S8mnEwAAM9VeA7Dgtt24Lc9Poru9HoAdwq8BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGGslsBSM=
   </data>
  </layer>
- <layer name="propsit" width="100" height="100" visible="0">
+ <layer name="propsit" width="100" height="100">
   <data encoding="base64" compression="zlib">
    eJzt2EEKgzAQAMD4/0/0C9UWeijUp9VDoWVpwUYlxsxcBIlBN2F3Y0rU4txtOz66fjw/dN/vt6LfyTfH2Le4FkA5Uy4cS78DAPUbMnvaOC7Owzx7OdsA9fv132nKM6c15gEAyvm3ngNszbkBADiq3D5Hf7Tc5RXDm1jSiIe9Tnrnvnu4yoXzqR9Ai9QPAHKoHwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHM0TtLsdEg==
   </data>
  </layer>
- <layer name="ovet" width="100" height="100" visible="0">
+ <layer name="ovet" width="100" height="100">
   <data encoding="base64" compression="zlib">
    eJzt2kEKwjAQBdB0rbfXW+glKugdFPQSeoDOyl0QSyDT9j34q0DIIoGZIaUAQHvXyC0yRi4z1mnrGXlF7pHHjHWAtXtHPr0PwdduKGU/9D5FPr3qq0Pk2HC/tehVX50i54b78Z/aO9Pf9FF7Z/obAOAX9VsuS6vf3J9clnZ/yMl8GOrMh3MxHwa2xv+zXPw/AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtmoCPdpJvA==
   </data>
  </layer>
- <layer name="hitboxit" width="100" height="100" opacity="0.3">
+ <layer name="hitboxit" width="100" height="100" visible="0" opacity="0.3">
   <data encoding="base64" compression="zlib">
    eJzt2UuOwjAQRVHY/6rYWU87qJs45Ur8gHOkjOw4n4uQEY/77fa48HjWtc5qXfc7MndvzdFr/tfjqNQelbHKXD326ZFFjyx6ZNEjS2eP2T1m9363Mme1d+3R1Sytz7t+X810fXXeanpsz1vtk3tUzltNj+34anpsx1fTYzu+WmeP6j60skblOjP3dhU98o6uHiNzEj6DZzn7+fQ4Ro8semTRI4seWdJ6OOb3s9VzP90Z77JzjW/r9Ncz7r3LkTVHehylx7Gx33P0qNEjix5Z9MiiR5bKXnV0zer4zLW/jR5Zrvj9/ura9NMjix5Z9MiiRxY9suiRRY8s/o8CAAAAAAAAAAAAAAAAAAAAAAAAAAAAoOoHCQX6SA==
   </data>
  </layer>
- <layer name="huoneet" width="100" height="100" opacity="0.63">
+ <layer name="huoneet" width="100" height="100" visible="0" opacity="0.63">
   <data encoding="base64" compression="zlib">
    eJzt1z1OAzEUhdHx/ncVAoFIkC1RpYlinvNDfGd0jnRbF++rvGvLshvYW7GPwV36bPctzXf7e6NGWuhR0yOLHln0yKJHFj2y6JHlWT32bWxVj/fBfRXr3f9YbDY99HhFj977euhxCz300KNPDz306HtWj0MbW9Vj7avu+ej00GPN0yNremRNj6zpkTU9spbSY2t6/9Ce6n96XnXvnzu3dXpk0SOLHln0yKJHFj2y6LFuemTR43+d2pzpcZ0eWfTIokcWPbLokUWPLHpkmdWD6/TIokcWPQAAAAAAAAAAAAAAAAAAAAAAAAAAgFl+AbXNdtI=
   </data>
