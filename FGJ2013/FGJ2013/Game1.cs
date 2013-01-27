@@ -223,7 +223,7 @@ namespace FGJ2013
                         if (hitbox.PlayerHit(new Rectangle((int)player.position.X + 10, (int)player.position.Y + 45, 35, 35),
                             new Rectangle((int)enemy.position.X + 10, (int)enemy.position.Y + 45, 35, 35))) //enemy hits player
                         {
-
+                            Reset();
                         }
                     }
 
@@ -276,7 +276,7 @@ namespace FGJ2013
                     endnumber += 1;
                     if (KeyboardInput.IsKeyDown(Keys.Space))
                     {
-                        Data.GameState = State.Start;
+                        Data.GameState = State.Menu;
                     }
                     break;
                 case State.Menu:
@@ -423,7 +423,7 @@ namespace FGJ2013
 
                     //while (endnumber < 1000)
                     //{
-                    //    spriteBatch.Draw(End1, Vector2.Zero, Color.White); 
+                    //    spriteBatch.Draw(End1, Vector2.Zero, Color.White);
                     //}
                     //while (1000 <= endnumber && endnumber < 1008)
                     //{
@@ -525,6 +525,7 @@ namespace FGJ2013
             DrugsCount = -1;
             CollectDrug();
             player = new Player(PlayerTexture, new Vector2(350));
+            Data.GameState = State.Menu;
         }
 
         void CollectDrug()
