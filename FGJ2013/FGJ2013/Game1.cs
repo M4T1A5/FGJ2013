@@ -138,11 +138,17 @@ namespace FGJ2013
             End3 = Content.Load<Texture2D>("StartImages/End3");
 
 
-            player = new Player(PlayerTexture, new Vector2(350));
+            player = new Player(PlayerTexture, new Vector2(55));
 
             enemies = new List<Enemy> 
             {
-                new Enemy(NurseTexture, new Vector2(300), Enemy.EnemyType.Nurse),
+                new Enemy(NurseTexture, new Vector2(550, 255), Enemy.EnemyType.Nurse),
+                new Enemy(NurseTexture, new Vector2(2090, 933), Enemy.EnemyType.Nurse),
+                new Enemy(NurseTexture, new Vector2(1645, 735), Enemy.EnemyType.Nurse),
+                new Enemy(NurseTexture, new Vector2(1027, 1042), Enemy.EnemyType.Nurse),
+
+                new Enemy(DoctorTexture, new Vector2(2133, 254), Enemy.EnemyType.Doctor),
+                new Enemy(DoctorTexture, new Vector2(1197, 638), Enemy.EnemyType.Doctor),
             };
             Map.InitObjectDrawing(GraphicsDevice);
             map = Content.Load<Map>("Maps/Stage");
@@ -268,9 +274,11 @@ namespace FGJ2013
                     {
                         heartbeatInstance.Pitch = -0.5f;
                     }
-                    heartbeatInstance.Volume = 1;// 0.2f + (3200 - shortestDistance) / 4000; 
+                    heartbeatInstance.Volume = 1;// 0.2f + (3200 - shortestDistance) / 4000;
 
                     camera.Pos = player.position;
+
+                    Debug.WriteLine(player.position);
 
                     break;
                 case State.End:
@@ -446,8 +454,8 @@ namespace FGJ2013
                     spriteBatch.Begin();
                     spriteBatch.Draw(Menu, Vector2.Zero, Color.White);
                     spriteBatch.End();
-                    Debug.Write(Mouse.GetState().X + " ");
-                    Debug.Write(Mouse.GetState().Y + "\n");
+                    //Debug.Write(Mouse.GetState().X + " ");
+                    //Debug.Write(Mouse.GetState().Y + "\n");
                     break;
                 case State.Credits:
                     spriteBatch.Begin();
