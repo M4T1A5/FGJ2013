@@ -171,14 +171,21 @@ namespace FGJ2013
             
             // TODO: Add your drawing code here
             //map.Draw(spriteBatch, mapView);
-           DrawLayer(spriteBatch, map, 0, ref mapView, 0f, playerSourceID);
+           DrawLayer(spriteBatch, map, 0, ref mapView, 0.0f, playerSourceID);
            DrawLayer(spriteBatch, map, 1, ref mapView, 0.1f, playerSourceID);
            DrawLayer(spriteBatch, map, 2, ref mapView, 0.2f, playerSourceID);
            DrawLayer(spriteBatch, map, 3, ref mapView, 0.3f, playerSourceID);
             player.Draw(spriteBatch);
             foreach (var enemy in enemies)
             {
-                enemy.Draw(spriteBatch);
+                var enemyTileX = (int)Math.Floor(enemy.position.X / map.TileWidth);
+                var enemyTileY = (int)Math.Floor(enemy.position.Y / map.TileHeight);
+                var enemySourceID = map.TileLayers[map.TileLayers.Count - 1]
+                    .Tiles[enemyTileX][enemyTileY].SourceID;
+                if (enemySourceID == playerSourceID)
+                {
+                    enemy.Draw(spriteBatch); 
+                }
             }            
             spriteBatch.End();
             base.Draw(gameTime);
