@@ -50,7 +50,7 @@ namespace FGJ2013
 
             //Camera.Position = new Vector2(1280 / 2, 720 / 2) - new Vector2((position.X), (position.Y));
 
-            if (KeyboardInput.IsKeyDown(Keys.Space))
+            if (KeyboardInput.IsKeyDown(Keys.Enter))
             {
                 int r = ((rand.Next(1, 99)) * 2 + 1);
                 int p = r;

@@ -22,6 +22,13 @@ namespace FGJ2013
         private float speed = 1;
         private float fps = 5;
         public int SourceID = 0;
+        public enum EnemyType
+        {
+            Nurse,
+            Doctor
+        }
+
+        public EnemyType Type;
         //private Color color;
         private Random rand = new Random();
 
@@ -36,8 +43,9 @@ namespace FGJ2013
 
         Look look = Look.None;
 
-        public Enemy(Texture2D Texture, Vector2 Position) //Color Color)
+        public Enemy(Texture2D Texture, Vector2 Position, EnemyType Enemytype) //Color Color)
         {
+            Type = Enemytype;
             position = Position;
             animator = new Animator(Texture, 2, 35, 55, 1, 2);
             //color = Color;

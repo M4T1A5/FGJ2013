@@ -56,10 +56,9 @@ namespace FGJ2013
         Texture2D Start3;
         Texture2D Start4;
 
-        int start1 = 255;
-        int start2 = 0;
-        int start3 = 0;
-        int start4 = 0;
+
+        List<int> start = new List<int> {255,0,0,0};
+        int startnumber = 0;
 
 
         //Texture2D maptexture;
@@ -119,7 +118,7 @@ namespace FGJ2013
 
             enemies = new List<Enemy> 
             {
-                new Enemy(NurseTexture, new Vector2(300)),
+                new Enemy(NurseTexture, new Vector2(300), Enemy.EnemyType.Nurse),
             };
             Map.InitObjectDrawing(GraphicsDevice);
             map = Content.Load<Map>("Maps/Stage");
@@ -159,6 +158,29 @@ namespace FGJ2013
                 case State.None:
                     break;
                 case State.Start:
+
+                    if (KeyboardInput.IsKeyDown(Keys.Space) && !keyPressed)
+                    {
+                        startnumber++;
+                        keyPressed = true;
+                    }
+                    else if (KeyboardInput.IsKeyUp(Keys.Space))
+                    {
+                        keyPressed = false;
+                    }
+
+                    if (startnumber > 3)
+                    {
+                        Data.GameStates = State.Play;
+                        break;
+                    }
+
+                    start[startnumber] += 2;
+                    if ((startnumber >0))
+                    {
+                        start[startnumber - 1] -= 3;
+                    }
+
 
                     break;
                 case State.Play:
@@ -273,10 +295,10 @@ namespace FGJ2013
 
                     spriteBatch.Begin(SpriteSortMode.FrontToBack,BlendState.AlphaBlend);
 
-                    spriteBatch.Draw(Start4, Vector2.Zero, new Color(start4, start4, start4, start4));
-                    spriteBatch.Draw(Start3, Vector2.Zero, new Color(start3, start3, start3, start3));
-                    spriteBatch.Draw(Start2, Vector2.Zero, new Color(start2, start2, start2, start2));
-                    spriteBatch.Draw(Start1, Vector2.Zero, new Color(start1, start1, start1, start1));
+                    spriteBatch.Draw(Start4, Vector2.Zero, new Color(start[3], start[3], start[3], start[3]));
+                    spriteBatch.Draw(Start3, Vector2.Zero, new Color(start[2], start[2], start[2], start[2]));
+                    spriteBatch.Draw(Start2, Vector2.Zero, new Color(start[1], start[1], start[1], start[1]));
+                    spriteBatch.Draw(Start1, Vector2.Zero, new Color(start[0], start[0], start[0], start[0]));
 
                     spriteBatch.End();
 
@@ -431,7 +453,14 @@ namespace FGJ2013
                 case 2: // change enemies
                     foreach (var enemy in enemies)
                     {
-                        enemy.ChangeTexture(DoctorTextureDark);
+                        if (enemy.Type == Enemy.EnemyType.Nurse)
+                        {
+                            enemy.ChangeTexture(NurseTextureDark);
+                        }
+                        else
+                        {
+                            enemy.ChangeTexture(DoctorTextureDark);
+                        }
                     }
                     break;
                 case 3: // change player
