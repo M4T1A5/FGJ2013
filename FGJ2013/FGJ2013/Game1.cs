@@ -56,9 +56,15 @@ namespace FGJ2013
         Texture2D Start3;
         Texture2D Start4;
 
+        Texture2D End1;
+        Texture2D End2;
+        Texture2D End3;
 
-        List<int> start = new List<int> {255,0,0,0};
+
+        List<int> start = new List<int> {0,0,0,0};
         int startnumber = 0;
+
+        int endnumber = 0;
 
 
         //Texture2D maptexture;
@@ -113,6 +119,10 @@ namespace FGJ2013
             Start3 = Content.Load<Texture2D>("StartImages/start3");
             Start4 = Content.Load<Texture2D>("StartImages/start4");
 
+            End1 = Content.Load<Texture2D>("StartImages/End1");
+            End2 = Content.Load<Texture2D>("StartImages/End2");
+            End3 = Content.Load<Texture2D>("StartImages/End3");
+
 
             player = new Player(PlayerTexture, new Vector2(350));
 
@@ -153,7 +163,7 @@ namespace FGJ2013
             // TODO: Add your update logic here
             KeyboardInput = Keyboard.GetState();
 
-            switch (Data.GameStates)
+            switch (Data.GameState)
             {
                 case State.None:
                     break;
@@ -171,7 +181,7 @@ namespace FGJ2013
 
                     if (startnumber > 3)
                     {
-                        Data.GameStates = State.Play;
+                        Data.GameState = State.Play;
                         break;
                     }
 
@@ -250,6 +260,11 @@ namespace FGJ2013
 
                     break;
                 case State.End:
+                    endnumber += 1;
+                    if (KeyboardInput.IsKeyDown(Keys.Space))
+                    {
+                        Data.GameState = State.Start;
+                    }
                     break;
                 default:
                     break;
@@ -287,7 +302,7 @@ namespace FGJ2013
             // TODO: Add your drawing code here
             //map.Draw(spriteBatch, mapView);
 
-            switch (Data.GameStates)
+            switch (Data.GameState)
             {
                 case State.None:
                     break;
@@ -369,6 +384,22 @@ namespace FGJ2013
 
                     break;
                 case State.End:
+                    spriteBatch.Begin();
+
+                    //while (endnumber < 1000)
+                    //{
+                    //    spriteBatch.Draw(End1, Vector2.Zero, Color.White); 
+                    //}
+                    //while (1000 <= endnumber && endnumber < 1008)
+                    //{
+                    //    spriteBatch.Draw(End2, Vector2.Zero, Color.White); 
+                    //}
+                    //while (1008 <= endnumber)
+                    //{
+                    //    spriteBatch.Draw(End3, Vector2.Zero, Color.White); 
+                    //}
+
+                    spriteBatch.End();
                     break;
                 default:
                     break;
@@ -443,6 +474,14 @@ namespace FGJ2013
             }
         }
 
+        void Reset()
+        {
+            //reset tiles back to normal
+            DrugsCount = -1;
+            CollectDrug();
+            player = new Player(PlayerTexture, new Vector2(350));
+        }
+
         void CollectDrug()
         {
             DrugsCount++;
@@ -483,10 +522,36 @@ namespace FGJ2013
                     }
                     break;
                 case 5: // win game
-                    this.Exit();
+                    Data.GameState = State.End;
                     break;
                 default:
-                    Debug.WriteLine("What??");
+                    foreach (var tileset in map.Tilesets)
+                    {
+                        if (tileset.Name == "propsit")
+                        {
+                            tileset.Texture = PropsTileSheet;
+                        }
+                    }
+                    foreach (var enemy in enemies)
+                    {
+                        if (enemy.Type == Enemy.EnemyType.Nurse)
+                        {
+                            enemy.ChangeTexture(NurseTexture);
+                        }
+                        else
+                        {
+                            enemy.ChangeTexture(DoctorTexture);
+                        }
+                    }
+                    player.ChangeTexture(PlayerTexture);
+                    foreach (var tileset in map.Tilesets)
+                    {
+                        if (tileset.Name == "tilesetti3")
+                        {
+                            tileset.Texture = WorldTileSheet;
+                        }
+                    }
+
                     break;
             }
         }
