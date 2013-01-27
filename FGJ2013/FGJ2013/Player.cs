@@ -19,6 +19,7 @@ namespace FGJ2013
         private Animator playerAnimator;
         private float speed = 5;
         private float fps = 5;
+        public int SourceID = 0;
 
         private List<Vector2> directionList = new List<Vector2> 
         { 
@@ -52,12 +53,13 @@ namespace FGJ2013
             if (KeyboardInput.IsKeyDown(Keys.Space))
             {
                 int r = ((rand.Next(1, 99)) * 2 + 1);
+                int p = r;
                 var multiplier = (3f / 4f) * Math.PI;
-                directionList[8] = directionList[rand.Next(1, 8)];
+                Vector2 randvect = directionList[rand.Next(1, 8)];
 
-                for (int i = 1; i < 8; i++)
+                for (int i = 1; i < 9; i++)
                 {
-                    directionList[i] = new Vector2((float)Math.Cos(i * r * multiplier) * directionList[1].X - (float)Math.Sin(i * r * multiplier) * directionList[1].Y, (float)Math.Sin(i * r * multiplier) * directionList[1].X + (float)Math.Cos(i * r * multiplier) * directionList[1].Y);
+                    directionList[i] = new Vector2((float)Math.Cos(i * p * multiplier) * randvect.X - (float)Math.Sin(i * p * multiplier) * randvect.Y, (float)Math.Sin(i * p * multiplier) * randvect.X + (float)Math.Cos(i * p * multiplier) * randvect.Y);
 
                 }
             }

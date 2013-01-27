@@ -32,6 +32,8 @@ namespace FGJ2013
         Hitbox hitbox;
         SoundEffect heartbeat;
         SoundEffectInstance heartbeatInstance;
+        bool keyPressed = false;
+
         //Texture2D maptexture;
         float shortestDistance;
 
@@ -66,15 +68,25 @@ namespace FGJ2013
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark"), new Vector2(350));
+
+            Data.PlayerTexture = Content.Load<Texture2D>("Animations/AllCharacterAnimations");
+            Data.PlayerTextureDark = Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark");
+            Data.DoctorTexture = Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctor");
+            Data.DoctorTextureDark = Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctorDark");
+            Data.NurseTexture = Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsu");
+            Data.NurseTextureDark = Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsuDark");
+
+            Data.WorldTileSheet = Content.Load<Texture2D>("Maps/worldsheet");
+            Data.WorldTileSheetDark = Content.Load<Texture2D>("Maps/hellworldsheet");
+            Data.PropsTileSheet = Content.Load<Texture2D>("Maps/props");
+            Data.PropsTileSheetDark = Content.Load<Texture2D>("Maps/hellprops");
+
+
+            player = new Player(Data.PlayerTexture, new Vector2(350));
+
             enemies = new List<Enemy> 
             {
-                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimations"), new Vector2(55)),
-                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark"), new Vector2(80)),
-                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctor"), new Vector2(130)),
-                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDoctorDark"), new Vector2(170)),
-                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsu"), new Vector2(230)),
-                new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimationsHoitsuDark"), new Vector2(260))
+                new Enemy(Data.NurseTexture, new Vector2(300)),
             };
             Map.InitObjectDrawing(GraphicsDevice);
             map = Content.Load<Map>("Maps/Stage");
@@ -109,52 +121,85 @@ namespace FGJ2013
             // TODO: Add your update logic here
             KeyboardInput = Keyboard.GetState();
 
-            player.Update(KeyboardInput, gameTime);
+            switch (Data.GameStates)
+            {
+                case State.None:
+                    break;
+                case State.Start:
+                    break;
+                case State.Play:
 
-            player.position += hitbox.MapHit(player.position);
+                    player.Update(KeyboardInput, gameTime);
 
-            foreach (var enemy in enemies)
-            {
-                enemy.Update(gameTime, player.position);
-                enemy.position += hitbox.MapHit(enemy.position);
-                if (hitbox.PlayerHit(new Rectangle((int)player.position.X + 10, (int)player.position.Y + 45, 35, 35), new Rectangle((int)enemy.position.X + 10, (int)enemy.position.Y + 45, 35, 35)))
-                {
+                    player.position += hitbox.MapHit(player.position);
 
-                }
-            }
-            if (KeyboardInput.IsKeyDown(Keys.W) && GameEventHandler.currentEvent != GameEvents.DoorOpen)
-            {
-                GameEventHandler.currentEvent = GameEvents.DoorOpen;
-                hitbox.AtDoor(player); 
-            }
-            else if (KeyboardInput.IsKeyUp(Keys.W))
-            {
-                GameEventHandler.currentEvent = GameEvents.None;
+                    foreach (var enemy in enemies)
+                    {
+                        if (player.SourceID == enemy.SourceID)
+                        {
+                            enemy.Update(gameTime, player.position);
+                            enemy.position += hitbox.MapHit(enemy.position); 
+                        }
+
+                        if (hitbox.PlayerHit(new Rectangle((int)player.position.X + 10, (int)player.position.Y + 45, 35, 35),
+                            new Rectangle((int)enemy.position.X + 10, (int)enemy.position.Y + 45, 35, 35))) //enemy hits player
+                        {
+
+                        }
+                    }
+
+                    for (var i = 0; i < map.ObjectLayers[0].MapObjects.Count<MapObject>(); i++)
+                    {
+                        if (hitbox.PlayerHit(new Rectangle((int)player.position.X + 10, (int)player.position.Y + 45, 35, 35),
+                            new Rectangle((int)map.ObjectLayers[0].MapObjects[i].Bounds.X, (int)map.ObjectLayers[0].MapObjects[i].Bounds.Y, 20, 20))) //player collects drug
+                        {
+                            Data.DrugsCount++;
+                        }
+                    }
+
+                    if (KeyboardInput.IsKeyDown(Keys.W) && KeyboardInput.IsKeyDown(Keys.U) && KeyboardInput.IsKeyDown(Keys.B) && !keyPressed)
+                    {
+                        keyPressed = true;
+                        hitbox.AtDoor(player); 
+                    }
+                    else if (KeyboardInput.IsKeyUp(Keys.W))
+                    {
+                        keyPressed = false;
+                    }
+
+                    if (heartbeatInstance.State != SoundState.Playing)
+                    {
+                        heartbeatInstance.IsLooped = true;
+                        heartbeatInstance.Play();
+                    }
+                    shortestDistance = 10000;
+                    foreach (var enemy in enemies)
+                    {
+                        if (shortestDistance > (enemy.position - player.position).Length())
+                            shortestDistance = (enemy.position - player.position).Length();
+                    }
+
+                    if (shortestDistance < 3000)
+                    {
+                        heartbeatInstance.Pitch = (2000 - shortestDistance) / 2000; // -0.3f;
+                    }
+                    else
+                    {
+                        heartbeatInstance.Pitch = -0.5f;
+                    }
+                    heartbeatInstance.Volume = 1;// 0.2f + (3200 - shortestDistance) / 4000; 
+
+                    camera.Pos = player.position;
+
+                    break;
+                case State.End:
+                    break;
+                default:
+                    break;
             }
 
-            if (heartbeatInstance.State != SoundState.Playing)
-            {
-                heartbeatInstance.IsLooped = true;
-                heartbeatInstance.Play();
-            }
-            shortestDistance = 10000;
-            foreach (var enemy in enemies)
-            {
-                if (shortestDistance > (enemy.position - player.position).Length())
-                    shortestDistance = (enemy.position - player.position).Length();
-            }
 
-            if (shortestDistance < 3000)
-            {
-                heartbeatInstance.Pitch = (2000 - shortestDistance) / 2000; // -0.3f;
-            }
-            else
-            {
-                heartbeatInstance.Pitch = -0.5f;
-            }
-            heartbeatInstance.Volume = 1;// 0.2f + (3200 - shortestDistance) / 4000; 
-
-            camera.Pos = player.position;
+            
 
             base.Update(gameTime);
 
@@ -169,15 +214,15 @@ namespace FGJ2013
             GraphicsDevice.Clear(Color.Black);
             var playerTileX = (int)Math.Floor(player.position.X / map.TileWidth);
             var playerTileY = (int)Math.Floor((player.position.Y + 45) / map.TileHeight);
-            var playerSourceID = 0;
+            player.SourceID = 0;
             try
             {
-                playerSourceID = map.TileLayers[map.TileLayers.Count - 1]
+                player.SourceID = map.TileLayers[map.TileLayers.Count - 1]
                         .Tiles[playerTileX][playerTileY].SourceID;
             }
             catch (NullReferenceException)
             {
-                playerSourceID = 0;
+                player.SourceID = 0;
                 //throw;
             }
             spriteBatch.Begin(SpriteSortMode.FrontToBack,
@@ -190,51 +235,69 @@ namespace FGJ2013
             
             // TODO: Add your drawing code here
             //map.Draw(spriteBatch, mapView);
-            DrawLayer(spriteBatch, map, 0, ref mapView, 0.1f, playerSourceID);
-            DrawLayer(spriteBatch, map, 1, ref mapView, 0.2f, playerSourceID);
-            DrawLayer(spriteBatch, map, 2, ref mapView, 0.3f, playerSourceID);
-            DrawLayer(spriteBatch, map, 3, ref mapView, 0.4f, playerSourceID);
-            for (var i = 0; i < map.ObjectLayers[0].MapObjects.Count<MapObject>(); i++ )
+
+            switch (Data.GameStates)
             {
-                var pill = map.ObjectLayers[0].MapObjects[i];
-                var PillTileX = (int)Math.Floor((double)pill.Bounds.X / map.TileWidth);
-                var PillTileY = (int)Math.Floor((double)pill.Bounds.Y / map.TileHeight);
-                var PillSourceID = map.TileLayers[map.TileLayers.Count - 1]
-                        .Tiles[PillTileX][PillTileY].SourceID;
-                if (PillSourceID != playerSourceID)
-                {
-                    map.DrawMapObject(spriteBatch, 0, i, mapView, 0.0f);
-                }
-                else
-                {
-                    map.DrawMapObject(spriteBatch, 0, i, mapView, 0.5f);
-                }
+                case State.None:
+                    break;
+                case State.Start:
+                    break;
+                case State.Play:
+                    DrawLayer(spriteBatch, map, 0, ref mapView, 0.1f, player.SourceID);
+                    DrawLayer(spriteBatch, map, 1, ref mapView, 0.2f, player.SourceID);
+                    DrawLayer(spriteBatch, map, 2, ref mapView, 0.3f, player.SourceID);
+                    DrawLayer(spriteBatch, map, 3, ref mapView, 0.4f, player.SourceID);
+                    for (var i = 0; i < map.ObjectLayers[0].MapObjects.Count<MapObject>(); i++ )
+                    {
+                        var pill = map.ObjectLayers[0].MapObjects[i];
+                        var PillTileX = (int)Math.Floor((double)pill.Bounds.X / map.TileWidth);
+                        var PillTileY = (int)Math.Floor((double)pill.Bounds.Y / map.TileHeight);
+                        var PillSourceID = map.TileLayers[map.TileLayers.Count - 1]
+                                .Tiles[PillTileX][PillTileY].SourceID;
+                        if (PillSourceID != player.SourceID)
+                        {
+                            map.DrawMapObject(spriteBatch, 0, i, mapView, 0.0f);
+                        }
+                        else
+                        {
+                            map.DrawMapObject(spriteBatch, 0, i, mapView, 0.5f);
+                        }
+                    }
+                    //map.DrawObjectLayer(spriteBatch, 0, mapView, 0.0f);
+                    player.Draw(spriteBatch);
+                    foreach (var enemy in enemies)
+                    {
+                        var enemyTileX = (int)Math.Floor(enemy.position.X / map.TileWidth);
+                        var enemyTileY = (int)Math.Floor((enemy.position.Y + 45)/ map.TileHeight);
+                        enemy.SourceID = 0;
+                        try
+                        {
+                            enemy.SourceID = map.TileLayers[map.TileLayers.Count - 1]
+                                                    .Tiles[enemyTileX][enemyTileY].SourceID;
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            enemy.SourceID = -1;
+                            //throw;
+                        }
+                        if (enemy.SourceID == player.SourceID)
+                        {
+                            enemy.Draw(spriteBatch); 
+                        }
+                    }
+                    break;
+                case State.End:
+                    break;
+                default:
+                    break;
             }
-            //map.DrawObjectLayer(spriteBatch, 0, mapView, 0.0f);
-            player.Draw(spriteBatch);
-            foreach (var enemy in enemies)
-            {
-                var enemyTileX = (int)Math.Floor(enemy.position.X / map.TileWidth);
-                var enemyTileY = (int)Math.Floor((enemy.position.Y + 45)/ map.TileHeight);
-                var enemySourceID = 0;
-                try
-                {
-                    enemySourceID = map.TileLayers[map.TileLayers.Count - 1]
-                                            .Tiles[enemyTileX][enemyTileY].SourceID;
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    enemySourceID = -1;
-                    //throw;
-                }
-                if (enemySourceID == playerSourceID)
-                {
-                    enemy.Draw(spriteBatch); 
-                }
-            }            
+
+
+                        
             spriteBatch.End();
             base.Draw(gameTime);
         }
+
         public void DrawLayer(SpriteBatch spriteBatch, Map map, Int32 layerID, ref Rectangle region, Single layerDepth, int SourceID)
         {
 
