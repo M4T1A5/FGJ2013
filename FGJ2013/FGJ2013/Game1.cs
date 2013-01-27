@@ -120,6 +120,7 @@ namespace FGJ2013
             PropsTileSheetDark = Content.Load<Texture2D>("Maps/hellprops");
 
             Menu = Content.Load<Texture2D>("titlescreenhearthand2");
+            Credits = Content.Load<Texture2D>("Credits1");
 
             Start1 = Content.Load<Texture2D>("StartImages/start1");
             Start2 = Content.Load<Texture2D>("StartImages/start2");
@@ -285,6 +286,10 @@ namespace FGJ2013
                     }
                     break;
                 case State.Credits:
+                    if (KeyboardInput.IsKeyDown(Keys.Escape))
+                    {
+                        Data.GameState = State.Menu;
+                    }
                     break;
                 default:
                     break;
@@ -414,6 +419,9 @@ namespace FGJ2013
                     Debug.Write(Mouse.GetState().Y + "\n");
                     break;
                 case State.Credits:
+                    spriteBatch.Begin();
+                    spriteBatch.Draw(Credits, Vector2.Zero, Color.White);
+                    spriteBatch.End();
                     break;
                 default:
                     break;
