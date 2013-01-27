@@ -17,6 +17,7 @@ namespace FGJ2013
     class Hitbox
     {
         public List<Rectangle> hitboxes;
+        public List<Rectangle> doors;
         Rectangle playerRectangle;
         public Hitbox(Map map)
         {
@@ -30,6 +31,17 @@ namespace FGJ2013
                         hitboxes.Add(tile.Target);
                     }
                 }                
+            }
+            doors = new List<Rectangle>();
+            foreach (var tiles in map.TileLayers[map.TileLayers.Count - 3].Tiles)
+            {
+                foreach (var tile in tiles)
+                {
+                    if (tile != null)
+                    {
+                        doors.Add(tile.Target);
+                    }
+                }
             }
         }
 
@@ -69,6 +81,20 @@ namespace FGJ2013
                 return true;
             else
                 return false;
+        }
+
+        public bool AtDoor(Player player)
+        {
+            foreach (var door in doors)
+            {
+                if (door.Intersects(new Rectangle((int)player.position.X, 
+                    (int)player.position.Y, 35, 35)))
+                {
+                    Debug.WriteLine("Suddenly door " + door.Location);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace FGJ2013
         Hitbox hitbox;
         SoundEffect heartbeat;
         SoundEffectInstance heartbeatInstance;
-        Texture2D maptexture;
+        //Texture2D maptexture;
         float shortestDistance;
 
 
@@ -66,7 +66,7 @@ namespace FGJ2013
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            player = new Player(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark"), new Vector2(350));
+            player = new Player(Content.Load<Texture2D>("Animations/AllCharacterAnimationsDark"), new Vector2(50));
             enemies = new List<Enemy> 
             {
                 new Enemy(Content.Load<Texture2D>("Animations/AllCharacterAnimations"), new Vector2(50)),
@@ -116,11 +116,12 @@ namespace FGJ2013
             {
                 enemy.Update(gameTime, player.position);
                 enemy.position += hitbox.MapHit(enemy.position);
-                if (hitbox.PlayerHit(new Rectangle((int)player.position.X + 10, (int)player.position.Y + 45, 35, 35),new Rectangle((int)enemy.position.X + 10, (int)enemy.position.Y + 45, 35, 35)))
+                if (hitbox.PlayerHit(new Rectangle((int)player.position.X + 10, (int)player.position.Y + 45, 35, 35), new Rectangle((int)enemy.position.X + 10, (int)enemy.position.Y + 45, 35, 35)))
                 {
-                    enemy.position = new Vector2(350);
+
                 }
             }
+            hitbox.AtDoor(player);
 
             if (heartbeatInstance.State != SoundState.Playing)
             {
@@ -158,7 +159,7 @@ namespace FGJ2013
        {
             GraphicsDevice.Clear(Color.Black);
             var playerTileX = (int)Math.Floor(player.position.X / map.TileWidth);
-            var playerTileY = (int)Math.Floor(player.position.Y / map.TileHeight);
+            var playerTileY = (int)Math.Floor((player.position.Y + 45) / map.TileHeight);
             var playerSourceID = map.TileLayers[map.TileLayers.Count - 1]
                 .Tiles[playerTileX][playerTileY].SourceID;
            spriteBatch.Begin(SpriteSortMode.Deferred,
@@ -179,9 +180,18 @@ namespace FGJ2013
             foreach (var enemy in enemies)
             {
                 var enemyTileX = (int)Math.Floor(enemy.position.X / map.TileWidth);
-                var enemyTileY = (int)Math.Floor(enemy.position.Y / map.TileHeight);
-                var enemySourceID = map.TileLayers[map.TileLayers.Count - 1]
-                    .Tiles[enemyTileX][enemyTileY].SourceID;
+                var enemyTileY = (int)Math.Floor((enemy.position.Y + 45)/ map.TileHeight);
+                var enemySourceID = 0;
+                try
+                {
+                    enemySourceID = map.TileLayers[map.TileLayers.Count - 1]
+                                            .Tiles[enemyTileX][enemyTileY].SourceID;
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    enemySourceID = -1;
+                    //throw;
+                }
                 if (enemySourceID == playerSourceID)
                 {
                     enemy.Draw(spriteBatch); 

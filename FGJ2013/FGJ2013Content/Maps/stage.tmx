@@ -29,7 +29,7 @@
  </layer>
  <layer name="ovet" width="100" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt2kEKwjAQBdB0rbfXW+glKugdFPQSeoDOyl0QSyDT9j34q0DIIoGZIaUAQHvXyC0yRi4z1mnrGXlF7pHHjHWAtXtHPr0PwdduKGU/9D5FPr3qq0Pk2HC/tehVX50i54b78Z/aO9Pf9FF7Z/obAOAX9VsuS6vf3J9clnZ/yMl8GOrMh3MxHwa2xv+zXPw/AwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtmoCPdpJvA==
+   eJzt2jsOgzAMANBkprdvL8TCHbpwifYAzdQtYgBkB96TPFmKMtiS8ykFAM6xtJh35DnW2uK9Iw9wZZ8W3+hN8DfVUh41ehc5RcxXzxavg9e8CvPVPfX6zPkmRq/P9B8AsMX8lsto85v6yWW0+iEf98PQ534YgGj+n+XifRQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALijH5QKJqI=
   </data>
  </layer>
  <layer name="hitboxit" width="100" height="100" visible="0" opacity="0.3">

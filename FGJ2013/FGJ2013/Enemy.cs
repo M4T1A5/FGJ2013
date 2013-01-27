@@ -21,7 +21,7 @@ namespace FGJ2013
         public Vector2 Direction = Vector2.Zero;
         private float speed = 1;
         private float fps = 5;
-        private Color color;
+        //private Color color;
         private Random rand = new Random();
 
         enum Look
