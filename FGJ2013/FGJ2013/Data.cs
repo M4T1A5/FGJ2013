@@ -25,6 +25,6 @@ namespace FGJ2013
 
     public static class Data
     {
-        public static State GameState = State.End;
+        public static State GameState = State.Menu;
     }
 }
