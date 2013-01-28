@@ -17,11 +17,6 @@ namespace FGJ2013
     class Hitbox
     {
         public List<Rectangle> hitboxes;
-        //public List<Rectangle> doors1;
-        //public List<Rectangle> doors2;
-        //public List<Rectangle> doors3;
-        //public List<Rectangle> doors4;
-        //public List<Rectangle> doors5;
         public List<List<Rectangle>> doors;
         public Hitbox(Map map)
         {
@@ -60,58 +55,6 @@ namespace FGJ2013
                     }
                 } 
             }
-
-
-            //foreach (var tiles in map.TileLayers[2].Tiles)
-            //{
-            //    foreach (var tile in tiles)
-            //    {
-            //        if (tile != null)
-            //        {
-            //            doors1.Add(tile.Target);
-            //        }
-            //    }
-            //}
-            //foreach (var tiles in map.TileLayers[3].Tiles)
-            //{
-            //    foreach (var tile in tiles)
-            //    {
-            //        if (tile != null)
-            //        {
-            //            doors2.Add(tile.Target);
-            //        }
-            //    }
-            //}
-            //foreach (var tiles in map.TileLayers[4].Tiles)
-            //{
-            //    foreach (var tile in tiles)
-            //    {
-            //        if (tile != null)
-            //        {
-            //            doors3.Add(tile.Target);
-            //        }
-            //    }
-            //}
-            //foreach (var tiles in map.TileLayers[5].Tiles)
-            //{
-            //    foreach (var tile in tiles)
-            //    {
-            //        if (tile != null)
-            //        {
-            //            doors4.Add(tile.Target);
-            //        }
-            //    }
-            //}
-            //foreach (var tiles in map.TileLayers[6].Tiles)
-            //{
-            //    foreach (var tile in tiles)
-            //    {
-            //        if (tile != null)
-            //        {
-            //            doors5.Add(tile.Target);
-            //        }
-            //    }
-            //}
         }
 
         public Vector2 MapHit(Vector2 CharacterPosition)
