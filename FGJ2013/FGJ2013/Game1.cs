@@ -41,6 +41,7 @@ namespace FGJ2013
         SoundEffect Musa4;
         SoundEffect kirkuna;
 
+        float volume = 0.5f;
         SoundEffectInstance instance;
         static int DrugsCount = 0;
         List<Rectangle> pillLocations;
@@ -161,20 +162,13 @@ namespace FGJ2013
 
             instance = MenuMusic.CreateInstance();
             instance.IsLooped = true;
+            instance.Volume = volume;
             instance.Play();
 
             player = new Player(PlayerTexture, new Vector2(55));
 
-            enemies = new List<Enemy> 
-            {
-                new Enemy(NurseTexture, new Vector2(550, 255), Enemy.EnemyType.Nurse),
-                new Enemy(NurseTexture, new Vector2(2090, 933), Enemy.EnemyType.Nurse),
-                new Enemy(NurseTexture, new Vector2(1645, 735), Enemy.EnemyType.Nurse),
-                new Enemy(NurseTexture, new Vector2(1027, 1042), Enemy.EnemyType.Nurse),
+            enemies = new List<Enemy> ();
 
-                new Enemy(DoctorTexture, new Vector2(2133, 254), Enemy.EnemyType.Doctor),
-                new Enemy(DoctorTexture, new Vector2(1197, 638), Enemy.EnemyType.Doctor),
-            };
             Map.InitObjectDrawing(GraphicsDevice);
             map = Content.Load<Map>("Maps/Stage");
             mapView = map.Bounds;
@@ -235,10 +229,12 @@ namespace FGJ2013
                         instance.Stop(true);
                         instance = Musa1.CreateInstance();
                         instance.IsLooped = true;
+                        instance.Volume = volume;
                         instance.Play();
 
                         heartbeatInstance = heartbeat.CreateInstance();
                         heartbeatInstance.IsLooped = true;
+                        heartbeatInstance.Volume = 0;
                         heartbeatInstance.Play();
 
                         break;
@@ -291,7 +287,7 @@ namespace FGJ2013
                     if (KeyboardInput.IsKeyDown(Keys.W) && !keyPressed)
                     {
                         keyPressed = true;
-                        hitbox.AtDoor(player); 
+                        hitbox.AtDoor(player,DrugsCount); 
                     }
                     else if (KeyboardInput.IsKeyUp(Keys.W))
                     {
@@ -311,15 +307,15 @@ namespace FGJ2013
                             shortestDistance = (enemy.position - player.position).Length();
                     }
 
-                    if (shortestDistance < 3000)
+                    if (shortestDistance < 300)
                     {
-                        heartbeatInstance.Pitch = (2000 - shortestDistance) / 2000; // -0.3f;
+                        heartbeatInstance.Pitch = (200 - shortestDistance) / 200;
+                        heartbeatInstance.Volume = (300 - shortestDistance) / 300;
                     }
                     else
                     {
                         heartbeatInstance.Pitch = -0.5f;
                     }
-                    heartbeatInstance.Volume = 1;// 0.2f + (3200 - shortestDistance) / 4000;
 
                     camera.Pos = player.position;
 
@@ -336,7 +332,9 @@ namespace FGJ2013
                         instance.Stop(true);
                         instance = MenuMusic.CreateInstance();
                         instance.IsLooped = true;
+                        instance.Volume = volume;
                         instance.Play();
+
                         Data.GameState = State.Menu;
                         endnumber = 0;
                     }
@@ -369,7 +367,9 @@ namespace FGJ2013
                         instance.Stop(true);
                         instance = MenuMusic.CreateInstance();
                         instance.IsLooped = true;
+                        instance.Volume = volume;
                         instance.Play();
+
                         Data.GameState = State.Menu;
                     }
                     break;
@@ -605,6 +605,7 @@ namespace FGJ2013
                 new Enemy(NurseTexture, new Vector2(2090, 933), Enemy.EnemyType.Nurse),
                 new Enemy(NurseTexture, new Vector2(1645, 735), Enemy.EnemyType.Nurse),
                 new Enemy(NurseTexture, new Vector2(1027, 1042), Enemy.EnemyType.Nurse),
+                new Enemy(NurseTexture, new Vector2(1525, 1025), Enemy.EnemyType.Nurse),
 
                 new Enemy(DoctorTexture, new Vector2(2133, 254), Enemy.EnemyType.Doctor),
                 new Enemy(DoctorTexture, new Vector2(1197, 638), Enemy.EnemyType.Doctor),
@@ -622,6 +623,7 @@ namespace FGJ2013
             instance.Stop(true);
             instance = MenuMusic.CreateInstance();
             instance.IsLooped = true;
+            instance.Volume = volume;
             instance.Play();
 
             Data.GameState = State.Menu;
@@ -648,6 +650,7 @@ namespace FGJ2013
                         instance.Stop(true);
                         instance = Musa2.CreateInstance();
                         instance.IsLooped = true;
+                        instance.Volume = volume;
                         instance.Play();
 
 
@@ -657,6 +660,7 @@ namespace FGJ2013
                         instance.Stop(true);
                         instance = Musa3.CreateInstance();
                         instance.IsLooped = true;
+                        instance.Volume = volume;
                         instance.Play();
 
                     player.ChangeTexture(PlayerTextureDark);
@@ -666,6 +670,7 @@ namespace FGJ2013
                         instance.Stop(true);
                         instance = Musa4.CreateInstance();
                         instance.IsLooped = true;
+                        instance.Volume = volume;
                         instance.Play();
 
                     foreach (var enemy in enemies)

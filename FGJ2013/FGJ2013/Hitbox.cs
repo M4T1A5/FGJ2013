@@ -17,7 +17,12 @@ namespace FGJ2013
     class Hitbox
     {
         public List<Rectangle> hitboxes;
-        public List<Rectangle> doors;
+        //public List<Rectangle> doors1;
+        //public List<Rectangle> doors2;
+        //public List<Rectangle> doors3;
+        //public List<Rectangle> doors4;
+        //public List<Rectangle> doors5;
+        public List<List<Rectangle>> doors;
         public Hitbox(Map map)
         {
             hitboxes = new List<Rectangle>();
@@ -29,19 +34,84 @@ namespace FGJ2013
                     {
                         hitboxes.Add(tile.Target);
                     }
-                }                
-            }
-            doors = new List<Rectangle>();
-            foreach (var tiles in map.TileLayers[1].Tiles)
-            {
-                foreach (var tile in tiles)
-                {
-                    if (tile != null)
-                    {
-                        doors.Add(tile.Target);
-                    }
                 }
             }
+            doors = new List<List<Rectangle>>
+                {
+                    new List<Rectangle>(),
+                    new List<Rectangle>(),
+                    new List<Rectangle>(),
+                    new List<Rectangle>(),
+                    new List<Rectangle>()
+                };
+
+
+
+            for (int i = 0; i < 5; i++)
+            {
+                foreach (var tiles in map.TileLayers[i + 4].Tiles)
+                {
+                    foreach (var tile in tiles)
+                    {
+                        if (tile != null)
+                        {
+                            doors[i].Add(tile.Target);
+                        }
+                    }
+                } 
+            }
+
+
+            //foreach (var tiles in map.TileLayers[2].Tiles)
+            //{
+            //    foreach (var tile in tiles)
+            //    {
+            //        if (tile != null)
+            //        {
+            //            doors1.Add(tile.Target);
+            //        }
+            //    }
+            //}
+            //foreach (var tiles in map.TileLayers[3].Tiles)
+            //{
+            //    foreach (var tile in tiles)
+            //    {
+            //        if (tile != null)
+            //        {
+            //            doors2.Add(tile.Target);
+            //        }
+            //    }
+            //}
+            //foreach (var tiles in map.TileLayers[4].Tiles)
+            //{
+            //    foreach (var tile in tiles)
+            //    {
+            //        if (tile != null)
+            //        {
+            //            doors3.Add(tile.Target);
+            //        }
+            //    }
+            //}
+            //foreach (var tiles in map.TileLayers[5].Tiles)
+            //{
+            //    foreach (var tile in tiles)
+            //    {
+            //        if (tile != null)
+            //        {
+            //            doors4.Add(tile.Target);
+            //        }
+            //    }
+            //}
+            //foreach (var tiles in map.TileLayers[6].Tiles)
+            //{
+            //    foreach (var tile in tiles)
+            //    {
+            //        if (tile != null)
+            //        {
+            //            doors5.Add(tile.Target);
+            //        }
+            //    }
+            //}
         }
 
         public Vector2 MapHit(Vector2 CharacterPosition)
@@ -83,12 +153,12 @@ namespace FGJ2013
                 return false;
         }
 
-        public void AtDoor(Player player)
+        public void AtDoor(Player player, int DrugsCount)
         {
             var playerRectangle = new Rectangle((int)player.position.X + 10, (int)player.position.Y + 45, 35, 35);
-            foreach (var door in doors)
+            foreach (var door in doors[DrugsCount])
             {
-                if (door.Intersects(new Rectangle((int)player.position.X + 9, 
+                if (door.Intersects(new Rectangle((int)player.position.X + 9,
                     (int)player.position.Y + 44, 37, 37)))
                 {
                     Vector2 difference = new Vector2((playerRectangle.Location.X + playerRectangle.Width / 2) - (door.Location.X + door.Width / 2),
@@ -124,7 +194,7 @@ namespace FGJ2013
 
                     Debug.WriteLine("Suddenly door " + door.Location + player.position);
                 }
-            }
+            } 
         }
     }
 }
