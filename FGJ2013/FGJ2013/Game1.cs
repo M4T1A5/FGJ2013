@@ -217,6 +217,10 @@ namespace FGJ2013
                     if (KeyboardInput.IsKeyDown(Keys.Space) && !keyPressed)
                     {
                         startnumber++;
+                        if (startnumber > 1)
+                        {
+                            start[startnumber - 2] = 0;
+                        }
                         keyPressed = true;
                     }
                     else if (KeyboardInput.IsKeyUp(Keys.Space))
@@ -226,15 +230,24 @@ namespace FGJ2013
 
                     if (startnumber > 3)
                     {
+                        
                         Data.GameState = State.Play;
                         instance.Stop(true);
                         instance = Musa1.CreateInstance();
                         instance.IsLooped = true;
                         instance.Play();
+
+                        heartbeatInstance = heartbeat.CreateInstance();
+                        heartbeatInstance.IsLooped = true;
+                        heartbeatInstance.Play();
+
                         break;
                     }
 
-                    start[startnumber] += 2;
+                    if (start[startnumber] < 260)
+                    {
+                        start[startnumber] += 2; 
+                    }
                     if ((startnumber >0))
                     {
                         start[startnumber - 1] -= 3;
@@ -290,6 +303,7 @@ namespace FGJ2013
                         heartbeatInstance.IsLooped = true;
                         heartbeatInstance.Play();
                     }
+
                     shortestDistance = 10000;
                     foreach (var enemy in enemies)
                     {
@@ -316,7 +330,7 @@ namespace FGJ2013
                     endnumber += 1;
                     if (endnumber == 300)
                         kirkuna.Play();
-                    if (KeyboardInput.IsKeyDown(Keys.Space))
+                    if (endnumber == 600)
                     {
 
                         instance.Stop(true);
@@ -324,6 +338,7 @@ namespace FGJ2013
                         instance.IsLooped = true;
                         instance.Play();
                         Data.GameState = State.Menu;
+                        endnumber = 0;
                     }
                     break;
                 case State.Menu:
@@ -332,6 +347,7 @@ namespace FGJ2013
                         var mouse = new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, 1, 1);
                         if (StartButton.Intersects(mouse))
                         {
+                            Reset();
                             Data.GameState = State.Start;
                             this.IsMouseVisible = false;
                         }
@@ -579,6 +595,7 @@ namespace FGJ2013
         void Reset()
         {
             //reset tiles back to normal
+            heartbeatInstance.Stop(true);
             DrugsCount = -1;
             CollectDrug();
             player = new Player(PlayerTexture, new Vector2(55));
@@ -672,6 +689,7 @@ namespace FGJ2013
                     }
                     break;
                 case 5: // win game
+                    Reset();
                     Data.GameState = State.End;
                     break;
                 default:
